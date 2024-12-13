@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Christmas Tree</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <link rel="stylesheet" href="button.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      perspective: 1000px;
+      background: linear-gradient(to bottom, #00111a, #004466);
+    }
+    canvas {
+      display: block;
+    }
+    .title {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 2rem;
+      font-family: 'Arial', sans-serif;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+    h2{
+        font-family: 'Arial', sans-serif;
+        font-size: 24px;
+    color: #FF66B2;
+    font-weight: bold;
+    white-space: nowrap;
+    /* animation: typing 3s steps(30) 1s 1 normal both; */
+    text-shadow: 0px 0px 20px rgba(255, 102, 178, 0.8), 0px 0px 30px rgba(255, 102, 178, 0.5);
+    overflow: hidden;
+    border-right: .15em solid #ff4b6e;
+    margin: 0 auto;
+    letter-spacing: .15em;
+    animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+    }
+    @keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+/* Container for Santa */
+.santa-claus {
+  position: absolute;
+  top: 40%;
+  left: 80%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  width: 250px;
+  height: 250px;
+  animation: santaAnimation 12s infinite ease-in-out, santaHoverEffect 1s infinite ease-in-out;
+  transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out, box-shadow 0.3s ease-in-out, transform 0.5s ease-in-out;
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.4); /* soft shadow for depth */
+  filter: brightness(1.2); /* bright effect */
+  border-radius: 50%;
+}
+.raindeer{
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  width: 250px;
+  height: 250px;
+  background: transparent !important;
+}
+/* Floating and smooth movement */
+@keyframes santaAnimation {
+  0% {
+    transform: translateX(-50%) translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(-40%) translateY(-10px) rotate(5deg);
+  }
+  50% {
+    transform: translateX(-30%) translateY(5px) rotate(-5deg);
+  }
+  75% {
+    transform: translateX(-40%) translateY(-10px) rotate(3deg);
+  }
+  100% {
+    transform: translateX(-50%) translateY(0) rotate(0deg);
+  }
+}
+
+/* Hover effect for more interactivity */
+.santa-claus:hover {
+  transform: scale(1.1) translateX(-50%) translateY(-10px) rotate(5deg);
+  box-shadow: 0 15px 50px rgba(255, 255, 255, 0.6); /* glowing effect */
+}
+
+/* Sparkle effect */
+@keyframes sparkle {
+  0% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.3); }
+  50% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 25px rgba(255, 255, 255, 0.5), 0 0 35px rgba(255, 255, 255, 0.4); }
+  100% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.3); }
+}
+
+.santa-claus {
+  animation: santaAnimation 12s infinite ease-in-out, sparkle 1.5s infinite ease-in-out;
+}
+
+  </style>
+</head>
+<body>
+  <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+<dotlottie-player class="santa-claus" src="https://lottie.host/c8162681-482a-4917-a304-cf8926e30b7f/Iw0lAp8Tan.lottie" background="transparent" speed="1" style="width: 200px; height: 200px;z-index: 999999;" loop autoplay></dotlottie-player>  
+  <div class="title"><h2>Tặng cậu nè</h2></div>
+  <button class="button" style="z-index: 999999999999;">
+    <div class="bg"></div>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 342 208"
+      height="208"
+      width="342"
+      class="splash"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-width="3"
+        d="M54.1054 99.7837C54.1054 99.7837 40.0984 90.7874 26.6893 97.6362C13.2802 104.485 1.5 97.6362 1.5 97.6362"
+      ></path>
+      <path
+        stroke-linecap="round"
+        stroke-width="3"
+        d="M285.273 99.7841C285.273 99.7841 299.28 90.7879 312.689 97.6367C326.098 104.486 340.105 95.4893 340.105 95.4893"
+      ></path>
+      <path
+        stroke-linecap="round"
+        stroke-width="3"
+        stroke-opacity="0.3"
+        d="M281.133 64.9917C281.133 64.9917 287.96 49.8089 302.934 48.2295C317.908 46.6501 319.712 36.5272 319.712 36.5272"
+      ></path>
+      <path
+        stroke-linecap="round"
+        stroke-width="3"
+        stroke-opacity="0.3"
+        d="M281.133 138.984C281.133 138.984 287.96 154.167 302.934 155.746C317.908 157.326 319.712 167.449 319.712 167.449"
+      ></path>
+      <path
+        stroke-linecap="round"
+        stroke-width="3"
+        d="M230.578 57.4476C230.578 57.4476 225.785 41.5051 236.061 30.4998C246.337 19.4945 244.686 12.9998 244.686 12.9998"
+      ></path>
+      <path
+        stroke-linecap="round"
+        stroke-width="3"
+        d="M230.578 150.528C230.578 150.528 225.785 166.471 236.061 177.476C246.337 188.481 244.686 194.976 244.686 194.976"
+      ></path>
+      <path
+        stroke-linecap="round"
+        stroke-width="3"
+        stroke-opacity="0.3"
+        d="M170.392 57.0278C170.392 57.0278 173.89 42.1322 169.571 29.54C165.252 16.9478 168.751 2.05227 168.751 2.05227"
+      ></path>
+      <path
+        stroke-linecap="round"
+        stroke-width="3"
+        stroke-opacity="0.3"
+        d="M170.392 150.948C170.392 150.948 173.89 165.844 169.571 178.436C165.252 191.028 168.751 205.924 168.751 205.924"
+      ></path>
+      <path
+        stroke-linecap="round"
+        stroke-width="3"
+        d="M112.609 57.4476C112.609 57.4476 117.401 41.5051 107.125 30.4998C96.8492 19.4945 98.5 12.9998 98.5 12.9998"
+      ></path>
+      <path
+        stroke-linecap="round"
+        stroke-width="3"
+        d="M112.609 150.528C112.609 150.528 117.401 166.471 107.125 177.476C96.8492 188.481 98.5 194.976 98.5 194.976"
+      ></path>
+      <path
+        stroke-linecap="round"
+        stroke-width="3"
+        stroke-opacity="0.3"
+        d="M62.2941 64.9917C62.2941 64.9917 55.4671 49.8089 40.4932 48.2295C25.5194 46.6501 23.7159 36.5272 23.7159 36.5272"
+      ></path>
+      <path
+        stroke-linecap="round"
+        stroke-width="3"
+        stroke-opacity="0.3"
+        d="M62.2941 145.984C62.2941 145.984 55.4671 161.167 40.4932 162.746C25.5194 164.326 23.7159 174.449 23.7159 174.449"
+      ></path>
+    </svg>
+  
+    <div class="wrap" onclick="handleChoice()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 221 42"
+        height="42"
+        width="221"
+        class="path"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-width="3"
+          d="M182.674 2H203C211.837 2 219 9.16344 219 18V24C219 32.8366 211.837 40 203 40H18C9.16345 40 2 32.8366 2 24V18C2 9.16344 9.16344 2 18 2H47.8855"
+        ></path>
+      </svg>
+  
+      <div class="outline"></div>
+      <div class="content">
+        <span class="char state-1">
+          <span data-label="X" style="--i: 1">X</span>
+          <span data-label="ấ" style="--i: 2">ấ</span>
+          <span data-label="u" style="--i: 3">u</span>
+          <span data-label=" " style="--i: 4"> </span>
+          <span data-label="Q" style="--i: 5">Q</span>
+          <span data-label=" " style="--i: 6"> </span>
+          <span data-label="u" style="--i: 7">u</span>
+          <span data-label="á" style="--i: 8">á</span>
+          <span data-label="!" style="--i: 9">!</span>
+        </span>
+  
+        <div class="icon" >
+          <div></div>
+        </div>
+  
+        <span class="char state-2" >
+          <span data-label="X" style="--i: 1">X</span>
+          <span data-label="i" style="--i: 2">i</span>
+          <span data-label="n" style="--i: 3">n</span>
+          <span data-label="h" style="--i: 4">h</span>
+          <span data-label="H" style="--i: 5">H</span>
+          <span data-label="ơ" style="--i: 6">ơ</span>
+          <span data-label="n" style="--i: 7">n</span>
+        </span>
+      </div>
+    </div>
+  </button>
+  <script>
+    // Lấy đối tượng button
+const button = document.querySelector('.button');
+
+// Hàm cập nhật vị trí của button
+function updateButtonPosition() {
+// Lấy chiều rộng và chiều cao của cửa sổ trình duyệt
+const screenWidth = window.innerWidth;
+const screenHeight = window.innerHeight;
+
+// Đặt vị trí button ở góc dưới bên trái
+button.style.position = 'fixed';  // Đảm bảo button luôn cố định
+button.style.left = '50px';  // Cách trái 20px
+button.style.bottom = '50px';  // Cách đáy 20px
+button.style.zIndex = '999999';  // Đảm bảo button luôn ở trên các phần tử khác
+}
+
+// Gọi hàm ngay khi tải trang
+updateButtonPosition();
+
+// Cập nhật vị trí khi cửa sổ thay đổi kích thước
+window.addEventListener('resize', updateButtonPosition);
+
+    let click = 0;
+    function handleChoice() {
+        click++;
+        console.log(click);
+        if (click >= 2) {          
+        window.location.href = "gift2.html";
+        click = 0;
+        }
+    }
+  </script>
+  <script>
+    // Initialize Scene, Camera, and Renderer
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Lighting Setup (Ambient, Point, and Spotlight)
+    camera.position.set(30, 20, 30);
+    const ambientLight = new THREE.AmbientLight(0x404040, 1);
+    const pointLight = new THREE.PointLight(0xFFFFFF, 1, 50);
+    pointLight.position.set(0, 30, 0);
+    scene.add(ambientLight, pointLight);
+
+    // Spotlight for extra realism
+    const spotlight = new THREE.SpotLight(0xFFDD00, 1.5);
+    spotlight.position.set(0, 50, 0);
+    spotlight.target.position.set(0, 10, 0);
+    spotlight.castShadow = true;
+    scene.add(spotlight);
+
+    // Function to create tree layers with gradient color effect
+    function createTreeLayer(height, radius, positionY, color1, color2) {
+      const treeGeometry = new THREE.ConeGeometry(radius, height, 32);
+      const treeMaterial = new THREE.MeshStandardMaterial({
+        color: color1,
+        roughness: 0.7,
+        metalness: 0.1,
+        emissive: color2,
+        emissiveIntensity: 0.1,
+      });
+      const treeLayer = new THREE.Mesh(treeGeometry, treeMaterial);
+      treeLayer.position.y = positionY + Math.random() * 2; // Adding slight randomness
+      treeLayer.rotation.y = Math.random() * Math.PI; // Random rotation
+      treeLayer.castShadow = true;
+      treeLayer.receiveShadow = true;
+      return treeLayer;
+    }
+
+    // Create tree layers and trunk with gradient color effect
+    const tree = new THREE.Group();
+    tree.add(createTreeLayer(15, 5, 10, 0x006400, 0x2E8B57)); // Bottom layer
+    tree.add(createTreeLayer(12, 4, 18, 0x2E8B57, 0x228B22)); // Middle layer
+    tree.add(createTreeLayer(9, 3, 25, 0x228B22, 0x006400)); // Top layer
+    scene.add(tree);
+
+    // Create Tree Trunk
+    function createTreeTrunk() {
+      const trunkGeometry = new THREE.CylinderGeometry(1, 1, 5, 32);
+      const trunkMaterial = new THREE.MeshStandardMaterial({ color: 0x8B4513 });
+      const trunk = new THREE.Mesh(trunkGeometry, trunkMaterial);
+      trunk.position.y = 2.5;
+      trunk.castShadow = true;
+      trunk.receiveShadow = true;
+      return trunk;
+    }
+    scene.add(createTreeTrunk());
+
+    // Create Star with Glow Effect
+    function createStar() {
+      const starGeometry = new THREE.IcosahedronGeometry(1, 0);
+      const starMaterial = new THREE.MeshStandardMaterial({
+        color: 0xFFD700,
+        emissive: 0xFFD700,
+        emissiveIntensity: 1.5,
+        metalness: 0.8,
+        roughness: 0.3
+      });
+      const star = new THREE.Mesh(starGeometry, starMaterial);
+      star.position.y = 30;
+      star.rotation.x = Math.PI / 2;
+      star.castShadow = true;
+      return star;
+    }
+
+    const star = createStar();
+    scene.add(star);
+
+    // Flicker effect for the star
+    let starFlickerTimer = 0;
+    function updateStarFlicker() {
+      starFlickerTimer += 0.02;
+      star.material.emissiveIntensity = 1 + Math.sin(starFlickerTimer * 5) * 0.3;
+    }
+
+    // Create Ornaments with Glow Effect
+    function createOrnament(positionX, positionZ) {
+      const ornamentMaterial = new THREE.MeshStandardMaterial({
+        color: Math.random() > 0.5 ? 0xFF0000 : 0x00FF00,
+        emissive: 0xFFFFFF,
+        emissiveIntensity: 1.5
+      });
+      const ornamentGeometry = new THREE.SphereGeometry(0.5 + Math.random() * 0.5, 16, 16);
+      const ornament = new THREE.Mesh(ornamentGeometry, ornamentMaterial);
+      ornament.position.set(positionX, Math.random() * 15 + 5, positionZ);
+      ornament.castShadow = true;
+      ornament.receiveShadow = true;
+      return ornament;
+    }
+
+    // Add Ornaments
+    for (let i = 0; i < 50; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const x = Math.sin(angle) * (Math.random() * 5 + 5);
+      const z = Math.cos(angle) * (Math.random() * 5 + 5);
+      scene.add(createOrnament(x, z));
+    }
+
+    // Snowfall effect
+    const snowflakes = [];
+    const snowMaterial = new THREE.PointsMaterial({ color: 0xFFFFFF, size: 0.5, opacity: 0.8 });
+    const snowGeometry = new THREE.BufferGeometry();
+    const positions = [];
+    for (let i = 0; i < 1000; i++) {
+      positions.push(Math.random() * 50 - 25, Math.random() * 50 + 25, Math.random() * 50 - 25);
+    }
+    snowGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    const snow = new THREE.Points(snowGeometry, snowMaterial);
+    scene.add(snow);
+
+    // Twinkling Lights with Optimized Glowing Effect
+    function addTreeLights() {
+      const colors = [0xff0000, 0x00ff00, 0x0000ff, 0xffff00];
+      for (let i = 0; i < 50; i++) {
+        const light = new THREE.PointLight(colors[Math.floor(Math.random() * colors.length)], 1, 10);
+        const angle = Math.random() * Math.PI * 2;
+        const distance = Math.random() * 5 + 5;
+        light.position.set(Math.sin(angle) * distance, Math.random() * 15 + 5, Math.cos(angle) * distance);
+        light.castShadow = true;
+        scene.add(light);
+      }
+    }
+    addTreeLights();
+
+    // Animation Loop
+    let angle = 0;
+    function animate() {
+      requestAnimationFrame(animate);
+
+      // Snowfall effect update
+      snow.geometry.attributes.position.array.forEach((v, i) => {
+        snow.geometry.attributes.position.array[i + 1] -= 0.1 + Math.random() * 0.05;
+        if (snow.geometry.attributes.position.array[i + 1] < -30) {
+          snow.geometry.attributes.position.array[i + 1] = Math.random() * 50 + 25;
+        }
+      });
+
+      snow.geometry.attributes.position.needsUpdate = true;
+
+      // Rotate tree and camera for dynamic view
+      angle += 0.01;
+      camera.position.x = Math.cos(angle) * 30;
+      camera.position.z = Math.sin(angle) * 30;
+      camera.lookAt(new THREE.Vector3(0, 10, 0));
+
+      // Update star flicker
+      updateStarFlicker();
+
+      // Render the scene
+      renderer.render(scene, camera);
+    }
+
+    animate();
+
+    // Resize handling
+    window.addEventListener('resize', () => {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+    });
+
+    // Enable shadows for realism
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+    tree.traverse(child => {
+      if (child instanceof THREE.Mesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+      }
+    });
+
+  </script>
+</body>
+</html>

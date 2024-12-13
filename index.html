@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Quà Noel Cho Crush</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.19/dist/sweetalert2.min.css" rel="stylesheet">
+    <style>
+     /* Tổng thể */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to top, #f0e6f6, #ffffff);
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+body:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    background-size: cover;
+    z-index: -1;
+    opacity: 0.8;
+}
+
+/* Phông nền cho mỗi phần */
+.container, #questionScreen, #journeyScreen, #finalGiftScreen, #regretScreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(255, 182, 193, 0.7);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.8);
+    width: 100%;
+    height: 100vh;
+}
+
+#questionScreen {
+    background: linear-gradient(145deg, #ffe6f0, #ffb3c6);
+    background-size: cover;
+    animation: backgroundPulse 5s infinite alternate;
+    box-shadow: 0px 0px 20px rgba(255, 99, 132, 0.5);
+}
+
+@keyframes backgroundPulse {
+    0% { background: linear-gradient(145deg, #ffe6f0, #ffb3c6); }
+    100% { background: linear-gradient(145deg, #ff99cc, #ff66b3); }
+}
+
+#journeyScreen {
+    background-size: cover;
+    color: white;
+}
+
+#finalGiftScreen {
+    background: linear-gradient(to bottom, #ffcccb, #f0e6f6);
+    width: 100%;
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0px 10px 30px rgba(255, 105, 180, 0.3);
+    animation: glitter 3s infinite alternate;
+}
+
+@keyframes glitter {
+    0% { background: linear-gradient(to bottom, #ffcccb, #f0e6f6); }
+    100% { background: linear-gradient(to bottom, #ffb6c1, #ff69b4); }
+}
+
+#regretScreen {
+    background-size: cover;
+    color: #fff;
+    text-align: center;
+    padding: 30px;
+    border-radius: 20px;
+    animation: regretAnim 5s infinite alternate;
+}
+
+@keyframes regretAnim {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
+}
+
+/* Thông báo popup cute */
+.swal2-popup {
+    font-family: 'Kalam', cursive;
+    background: linear-gradient(to right, #ff99cc, #ff66b3);
+    border-radius: 20px;
+    color: #fff;
+}
+
+.swal2-title {
+    font-size: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.swal2-content {
+    font-size: 1.2rem;
+}
+
+.swal2-confirm {
+    background-color: #ff69b4 !important;
+    border-radius: 30px;
+    box-shadow: 0px 4px 15px rgba(255, 105, 180, 0.5);
+    font-size: 1rem;
+}
+
+.swal2-icon {
+    border: 3px solid #fff !important;
+}
+
+/* Hộp quà và các nút lựa chọn */
+/* .gift-box {
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(to right, #ff99cc, #ff4b6e);
+    border-radius: 15px;
+    position: relative;
+    margin: 0 auto;
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.8);
+    animation: boxGlow 3s ease-in-out infinite alternate;
+} */
+
+@keyframes boxGlow {
+    0% { box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.6); }
+    100% { box-shadow: 0px 0px 20px rgba(255, 255, 255, 1); }
+}
+
+.btn-love {
+    background-color: #ff4b6e;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0px 0px 15px rgba(255, 105, 180, 0.5);
+}
+
+.btn-love:hover {
+    transform: scale(1.1);
+    background-color: #ff66b3;
+}
+
+.choice-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.choice-buttons button {
+    background-color: #ff99cc;
+    color: white;
+    font-size: 1.2rem;
+    padding: 15px 30px;
+    border-radius: 30px;
+    box-shadow: 0px 0px 15px rgba(255, 182, 193, 0.7);
+    transition: transform 0.3s ease;
+}
+
+.choice-buttons button:hover {
+    transform: scale(1.1);
+    background-color: #ff66b3;
+}
+
+/* Phông nền cho các bước tiến hành */
+.snow-path {
+    background-color: #e6f7ff;
+    padding: 20px;
+    border-radius: 20px;
+    margin-top: 20px;
+    box-shadow: 0px 0px 15px rgba(255, 182, 193, 0.5);
+}
+
+.leaf {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: #4CAF50;
+    border-radius: 50%;
+    animation: leaf-fall 5s linear infinite;
+}
+
+@keyframes leaf-fall {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(80vh) rotate(360deg); }
+}
+
+/* Mở món quà */
+/* .gift-opening {
+    width: 250px;
+    height: 250px;
+    background-color: #ff4b6e;
+    border-radius: 15px;
+    position: relative;
+    margin: 0 auto;
+    box-shadow: 0px 0px 30px rgba(255, 105, 180, 0.5);
+    animation: giftOpen 3s ease-out forwards;
+} */
+
+@keyframes giftOpen {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
+/* Cấu trúc chung của màn hình quà tặng */
+#finalGiftScreen {
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    background-color: #fef6f6; 
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    max-width: 550px;
+    margin: auto;
+}
+
+/* Tạo hiệu ứng tuyết rơi nhẹ nhàng để không gian thêm phần lãng mạn */
+@keyframes snow {
+    0% { top: -10%; opacity: 0.8; }
+    100% { top: 100%; opacity: 0; }
+}
+
+.snowflake {
+    position: absolute;
+    top: -10%;
+    left: calc(100% * (random() - 0.5));
+    opacity: 0.6;
+    font-size: 12px;
+    animation: snow 10s linear infinite;
+    pointer-events: none;
+}
+
+.snowflake:nth-child(odd) {
+    animation-duration: 12s;
+    font-size: 14px;
+}
+
+/* Tạo các bong bóng bay lên cho không khí dễ thương */
+@keyframes bubble {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-200px); opacity: 0; }
+}
+
+.bubble {
+    position: absolute;
+    bottom: -20px;
+    left: calc(100% * (random() - 0.5));
+    animation: bubble 5s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* Hộp quà chính */
+.gift-opening {
+    display: inline-block;
+    position: relative;
+    width: 250px;
+    height: 250px;
+    z-index: 10;
+    animation: bounce 1s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+    100% { transform: translateY(0); }
+}
+
+/* Hộp quà chính */
+.gift-box {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: linear-gradient(145deg, #ff80ab, #ff4081);  /* Màu hồng sáng tươi mới */
+    border-radius: 12px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.5s ease-out;
+    overflow: hidden;
+}
+
+/* Nắp hộp quà */
+.gift-lid {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: #e91e63;  /* Đỏ tươi nổi bật */
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    transition: top 0.5s ease-out, transform 0.5s ease;
+}
+
+/* Thân hộp quà */
+.gift-body {
+    width: 100%;
+    height: 80%;
+    background-color: #e91e63;
+    border-radius: 12px;
+    box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Ruy băng xinh xắn */
+.gift-ribbon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 80%;
+    height: 25px;
+    background-color: #fff;
+    border-radius: 25px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+    animation: shine 2s ease-in-out infinite;
+}
+
+/* Hiệu ứng sáng bóng cho ruy băng */
+@keyframes shine {
+    0% { box-shadow: 0 0 25px rgba(255, 255, 255, 0.4); }
+    50% { box-shadow: 0 0 45px rgba(255, 255, 255, 1); }
+    100% { box-shadow: 0 0 25px rgba(255, 255, 255, 0.4); }
+}
+
+/* Thêm chiếc nơ xinh xắn cho hộp quà */
+.gift-ribbon::before, .gift-ribbon::after {
+    content: "";
+    position: absolute;
+    background-color: #fff;
+    border-radius: 50%;
+    opacity: 0.8;
+}
+
+.gift-ribbon::before {
+    width: 18px;
+    height: 18px;
+    left: -15px;
+    top: -12px;
+}
+
+.gift-ribbon::after {
+    width: 18px;
+    height: 18px;
+    right: -15px;
+    top: -12px;
+}
+
+/* Hiệu ứng khi mở hộp quà */
+.opened .gift-lid {
+    top: -120px;
+    transform: rotate(180deg);
+}
+
+.opened .gift-box {
+    transform: scale(1.1);
+    animation: pop 0.5s ease-out;
+}
+
+@keyframes pop {
+    0% { transform: scale(0.95); opacity: 0; }
+    100% { transform: scale(1.1); opacity: 1; }
+}
+
+/* Nút mở quà */
+.btn-love {
+    background-color: #ff4081;
+    color: white;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+/* Hiệu ứng khi hover vào nút */
+.btn-love:hover {
+    background-color: #f50057;
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Hiệu ứng khi nút nhấn */
+@keyframes popButton {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(1.1); opacity: 1; }
+}
+
+.btn-love:active {
+    animation: popButton 0.2s ease-in-out;
+}
+
+/* Tiêu đề và mô tả */
+h2, p {
+    font-size: 1.3rem;
+    color: #333;
+    font-weight: normal;
+    margin-top: 25px;
+    letter-spacing: 1px;
+}
+
+/* Thêm chút "độc đáo" cho các chi tiết */
+.gift-ribbon::before, .gift-ribbon::after {
+    content: "";
+    position: absolute;
+    background-color: #fff;
+    border-radius: 50%;
+    opacity: 0.8;
+}
+
+.gift-ribbon::before {
+    width: 18px;
+    height: 18px;
+    left: -15px;
+    top: -12px;
+}
+
+.gift-ribbon::after {
+    width: 18px;
+    height: 18px;
+    right: -15px;
+    top: -12px;
+}
+
+
+/* Nút mở quà */
+.btn-love {
+    background-color: #ff4081;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-love:hover {
+    background-color: #e91e63;
+    transform: scale(1.1);
+}
+
+/* Hiệu ứng khi nút mở quà */
+@keyframes popButton {
+    0% { transform: scale(1); opacity: 0.7; }
+    100% { transform: scale(1.1); opacity: 1; }
+}
+
+.btn-love:active {
+    animation: popButton 0.2s ease-in-out;
+}
+
+/* Hiệu ứng khi nhấn nút */
+.btn-love {
+    background-color: #ff4081;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-love:hover {
+    background-color: #e91e63;
+}
+
+/* Ẩn/Hiện hộp quà */
+#finalGiftScreen {
+    display: none;
+}
+
+#finalGiftScreen.show {
+    display: block;
+}
+
+    </style>
+</head>
+<body>
+    <!-- Màn Hình 1: Chào Cậu, Ngày Noel Đặc Biệt -->
+    <div class="container" id="initialMessage">
+        <div class="heart">❤️</div>
+        <h1 class="typing-effect">Chào cậu, Ngày Noel Đặc Biệt!</h1>
+        <p>Chúc Cậu Một Giáng Sinh Vui Vẻ...</p>
+        <button class="btn-love" onclick="startJourney()">Bắt đầu nhé</button>
+    </div>
+
+    <!-- Màn Hình 2: Một Câu Hỏi Đặc Biệt -->
+    <div id="questionScreen" style="display: none;">
+        <!-- <div class="gift-box"></div> -->
+        <h2 class="typing-effect">Cậu có muốn cùng tớ trải qua mùa Giáng Sinh này không?</h2>
+        <div class="choice-buttons">
+            <button class="btn-love" onclick="handleChoice(true)">Có</button>
+            <button class="btn-love" onclick="handleChoice(false)">Không</button>
+        </div>
+    </div>
+
+    <!-- Màn Hình 3: Hành Trình Giáng Sinh Cùng Tớ -->
+    <!-- <div id="journeyScreen" style="display: none;">
+        <div class="snow-path">
+            <div class="leaf"></div>
+            <h2>Cậu biết không, mùa Giáng Sinh này tớ muốn dành cho cậu một điều đặc biệt...</h2>
+            <p>Hãy cùng tớ bước đi trên con đường này nhé!</p>
+        </div>
+    </div> -->
+
+    <!-- Màn Hình 4: Món Quà Giáng Sinh -->
+    <div id="finalGiftScreen" style="display: none;">
+        <div class="gift-opening" id="gift-opening">
+            <div class="gift-box">
+                <div class="gift-lid"></div>
+                <div class="gift-body"></div>
+                <div class="gift-ribbon"></div>
+            </div>
+        </div>
+        <h2>Món quà này tớ muốn gửi tặng cậu...</h2>
+        <p>Không phải vật chất, mà là tình cảm chân thành từ tớ!</p>
+        <button class="btn-love" onclick="openGift()">Đi tới hộp quà</button>
+    </div>
+    
+
+    <!-- Màn Hình 5: Nuối tiếc và Lời chúc ngọt ngào -->
+    <div id="regretScreen" style="display: none;">
+        <div class="heart">❤️</div>
+        <h2>Chắc chắn là tớ sẽ luôn quý mến cậu...</h2>
+        <p>Chúc cậu một Giáng Sinh thật ấm áp và tuyệt vời! ❤️</p>
+        <button class="btn-love" onclick="finishJourney()">Cảm ơn vì đã cùng tớ chia sẻ những khoảnh khắc này!</button>
+    </div>
+
+    <div class="snow"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.19/dist/sweetalert2.all.min.js"></script>
+    <script>
+        let noChoiceCount = 0;
+
+        function startJourney() {
+            try {
+                const screens = {
+                    initialMessage: document.getElementById('initialMessage'),
+                    questionScreen: document.getElementById('questionScreen'),
+                    finalGiftScreen: document.getElementById('finalGiftScreen'),
+                    regretScreen: document.getElementById('regretScreen')
+                };
+
+                Object.keys(screens).forEach((key) => {
+                    if (!screens[key]) {
+                        throw new Error(`Missing element with ID: ${key}`);
+                    }
+                });
+
+                screens.initialMessage.style.display = 'none';;
+                screens.questionScreen.style.display = 'block';;
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+function handleChoice(accepted) {
+    const buttons = document.querySelectorAll('.btn-love');
+    buttons.forEach(button => {
+        button.style.transition = 'all 0.3s ease-in-out';
+        if (accepted) {
+            button.style.transform = 'scale(1.2)';
+            Swal.fire({
+                title: 'Tớ rất vui!',
+                text: 'Cùng tớ tạo nên mùa Giáng Sinh tuyệt vời nhé!',
+                imageUrl: 'https://media.giphy.com/media/UVk5yzljef0kGiayL1/giphy.gif?cid=790b76117qx8iz8vg39p14mneo0nu1ch5g9aq9cwsbjsvxx9&ep=v1_gifs_search&rid=giphy.gif&ct=g',  // Đường dẫn đến ảnh động (GIF)
+                imageWidth: 400,
+                imageHeight: 200,
+                imageAlt: 'GIF image',
+                confirmButtonColor: '#ff4b6e',
+                confirmButtonText: 'Đồng ý 2 tay lun nè'
+            }).then(() => {
+                document.getElementById('questionScreen').style.display = 'none';
+                document.getElementById('finalGiftScreen').style.display = 'block'; 
+            });
+        } else {
+            button.style.transform = 'scale(0.8)';
+            noChoiceCount++;
+            if (noChoiceCount >=3&&noChoiceCount<=17) {
+                const button = document.querySelector('button[onclick="handleChoice(false)"]');
+                const maxX = window.innerWidth - button.offsetWidth;
+                const maxY = window.innerHeight - button.offsetHeight;
+                
+                button.style.position = 'fixed';
+                button.style.left = Math.random() * maxX + 'px';
+                button.style.top = Math.random() * maxY + 'px';
+            } else {
+                if (noChoiceCount > 18){
+                    Swal.fire({
+                    title: 'Dù sao...😔',
+                    text: 'Tớ vẫn luôn quý mến cậu, chúc cậu Giáng Sinh ấm áp!',
+                    imageUrl: 'https://media.giphy.com/media/3o6wrebnKWmvx4ZBio/giphy.gif?cid=790b7611lmvmie23mzojn90jsqg64fap28i5ulia7j92k6qg&ep=v1_gifs_search&rid=giphy.gif&ct=g',  // Đường dẫn đến ảnh động (GIF)
+                    imageWidth: 400,
+                    imageHeight: 200,
+                    imageAlt: 'GIF image',  // Mô tả cho ảnh động
+                    confirmButtonColor: '#ff4b6e'
+                });
+            }
+            }
+        }
+    });
+}
+
+function openGift() {
+    window.location.href = 'gift-box.html';
+}
+
+function finishJourney() {
+    Swal.fire({
+        title: 'Cảm ơn cậu đã đồng hành cùng tớ!',
+        text: 'Chúc cậu một Giáng Sinh thật sự vui vẻ và ngọt ngào!',
+        icon: 'success',
+        confirmButtonText: 'Chúc mừng Giáng Sinh! ❤️',
+        confirmButtonColor: '#ff4b6e'
+    }).then(() => {
+        document.getElementById('regretScreen').classList.add('hidden');
+        document.getElementById('initialMessage').classList.remove('hidden');
+    });
+}
+
+document.getElementById('gift-opening').addEventListener('click', function () {
+    const giftBox = document.querySelector('.gift-box');
+    const giftScreen = document.getElementById('finalGiftScreen');
+    
+    giftBox.classList.add('opened');
+    
+    // Tạo hiệu ứng bong bóng và tuyết rơi
+    let snowflake = document.createElement('div');
+    snowflake.className = 'snowflake';
+    snowflake.textContent = '❄';
+    giftScreen.appendChild(snowflake);
+    setTimeout(() => snowflake.remove(), 10000);
+    
+    let bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    giftScreen.appendChild(bubble);
+    setTimeout(() => bubble.remove(), 5000);
+});
+    </script>
+</body>
+</html>

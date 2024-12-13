@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      /* author: https://codepen.io/khanhtranngoccva/pen/gOEONOg
+Khanh Tran */
+html, body, iframe {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    overflow: hidden;
+    margin: 0;
+    background: #2C133B;
+  }
+  
+  iframe {
+    border: none;
+  }
+  
+  .container {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .source-code {
+    display: flex;
+    background-color: white;
+    position: fixed;
+    font-weight: 600;
+    z-index: 4;
+    bottom: 1rem;
+    align-items: center;
+    gap: 1ch;
+    right: 1rem;
+    text-decoration: none;
+    color: black;
+    font-family: "Inter", system-ui;
+    border-radius: 8px;
+    padding: 1rem 2ch;
+    transition: background-color 0.15s ease-in-out;
+  }
+  
+  .source-code:focus-visible, .source-code:hover {
+    background-color: #eee;
+  }
+  
+  .icon {
+    width: 2rem;
+    height: 2rem;
+  }
+  
+  .loading-placeholder {
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }/* author: https://codepen.io/khanhtranngoccva/pen/gOEONOg
+Khanh Tran */
+html, body, iframe {
+    width: 100%;
+    height: 100%;
+  }
+  
+  body {
+    overflow: hidden;
+    margin: 0;
+    background: #2C133B;
+  }
+  
+  iframe {
+    border: none;
+  }
+  
+  .container {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .source-code {
+    display: flex;
+    background-color: white;
+    position: fixed;
+    font-weight: 600;
+    z-index: 4;
+    bottom: 1rem;
+    align-items: center;
+    gap: 1ch;
+    right: 1rem;
+    text-decoration: none;
+    color: black;
+    font-family: "Inter", system-ui;
+    border-radius: 8px;
+    padding: 1rem 2ch;
+    transition: background-color 0.15s ease-in-out;
+  }
+  
+  .source-code:focus-visible, .source-code:hover {
+    background-color: #eee;
+  }
+  
+  .icon {
+    width: 2rem;
+    height: 2rem;
+  }
+  
+  .loading-placeholder {
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+html, body, iframe {
+    width: 100%;
+    height: 100%;
+  }
+  
+  body {
+    overflow: hidden;
+    margin: 0;
+    background: #2C133B;
+  }
+  
+  iframe {
+    border: none;
+  }
+  
+  .container {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .source-code {
+    display: flex;
+    background-color: white;
+    position: fixed;
+    font-weight: 600;
+    z-index: 4;
+    bottom: 1rem;
+    align-items: center;
+    gap: 1ch;
+    right: 1rem;
+    text-decoration: none;
+    color: black;
+    font-family: "Inter", system-ui;
+    border-radius: 8px;
+    padding: 1rem 2ch;
+    transition: background-color 0.15s ease-in-out;
+  }
+  
+  .source-code:focus-visible, .source-code:hover {
+    background-color: #eee;
+  }
+  
+  .icon {
+    width: 2rem;
+    height: 2rem;
+  }
+  
+  .loading-placeholder {
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .container-01 {
+    box-sizing: content-box;
+    display: flex;
+    position: fixed;
+    border-radius: 14px;
+    top: 39%;
+    left: 64%;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 35%;
+    min-height: 25vh;
+    background: #0e1538;
+}
+.container-01 h2{
+    color: #f7f7f7;
+    flex-wrap: wrap;
+    font-size: medium;
+    margin-left: 5px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.diva{
+    width: 100%;
+    height: 100%;
+    background: #f7f7f7;
+    border-radius: 14px;
+    margin: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    transition: 0.3s;
+    align-items: center;
+    justify-items: center;
+}
+.diva .btn:hover {
+    transform: translateY(-5px);
+}
+
+.diva .btn span {
+    position: relative;
+    z-index: 2;
+}
+.btn {
+    position: relative;
+    padding: 10px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    margin: 40px;
+    transition: 1s;
+    overflow: hidden;
+    text-decoration: none;
+    z-index: 9999999;
+}
+
+.btn:hover {
+    background: var(--clr);
+    box-shadow: 0 0 10px var(--clr),
+                0 0 30px var(--clr),
+                0 0 60px var(--clr),
+                0 0 100px var(--clr);
+}
+
+.btn::before {
+    content: "";
+    position: absolute;
+    width: 40px;
+    height: 200%;
+    background: var(--clr);
+    transition: 1s;
+    animation: animate 2s linear infinite;
+    animation-delay: calc(0.33s * var(--i));
+}
+
+.btn:hover::before {
+    width: 100%;
+}
+
+@keyframes animate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.btn::after {
+    content: "";
+    position: absolute;
+    background: #0e1538;
+    inset: 4px;
+    transition: 0.5s;
+}
+
+.btn:hover::after {
+    background: var(--clr);
+}
+
+.btn span {
+    position: relative;
+    z-index: 1;
+    font-size: 0.8em;
+    color: #fff;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    transition: 0.5s;
+}
+
+.btn:hover span {
+    opacity: 1;
+    color: #0e1538;
+}
+/* Đặt kiểu cho icon "?" */
+.question-icon {
+    position: fixed;
+    top: 90%;
+    left: 95%;
+    font-size: 10vh;
+    font-weight: bold;
+    color: #ff22bb;
+    cursor: pointer;
+    animation: wiggle 1s infinite ease-in-out; /* Thêm hiệu ứng lắc lư */
+    transition: transform 0.3s ease;
+}
+
+/* Thêm hiệu ứng lắc lư */
+@keyframes wiggle {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    25% { transform: translate(-50%, -50%) rotate(10deg); }
+    50% { transform: translate(-50%, -50%) rotate(0deg); }
+    75% { transform: translate(-50%, -50%) rotate(-10deg); }
+    100% { transform: translate(-50%, -50%) rotate(0deg); }
+}
+
+/* Đặt kiểu cho container-01 (ẩn ban đầu) */
+/* .container-01 {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999999999;
+    display: grid;
+    gap: 10px;
+} */
+
+/* Đặt kiểu cho các button */
+/* .container-01 a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: var(--clr);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+} */
+
+/* .container-01 a:hover {
+    background-color: #ff77ff;
+} */
+
+/* Hiệu ứng mở rộng container-01 */
+.container-01.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    box-sizing: content-box;
+    display: flex;
+    position: fixed;
+    border-radius: 5%;
+    top: 39%;
+    left: 64%;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 35%;
+    min-height: 25vh;
+    background: #0e1538;
+}
+h2 .typing-effect {
+    overflow: hidden;
+    border-right: .15em solid #ff4b6e;
+    margin: 0 auto;
+    letter-spacing: .15em;
+    animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+    word-wrap: break-word; /* Đảm bảo văn bản có thể xuống dòng */
+    white-space: pre-wrap; /* Giữ các dấu cách và xuống dòng khi cần */
+    overflow-wrap: break-word; /* Tạo hiệu ứng xuống dòng tự động */
+    padding: 5px 20px; /* Thêm padding để tránh văn bản bị dính vào viền */
+    text-align: center;
+}
+/* Thông báo popup cute */
+.swal2-popup {
+  z-index: 9999999;
+    font-family: 'Kalam', cursive;
+    background: linear-gradient(to right, #ff99cc, #ff66b3);
+    border-radius: 20px;
+    color: #fff;
+}
+
+.swal2-title {
+  z-index: 9999999;
+    font-size: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.swal2-content {
+  z-index: 9999999;
+    font-size: 1.2rem;
+}
+
+.swal2-confirm {
+  z-index: 9999999;
+    background-color: #ff69b4 !important;
+    border-radius: 30px;
+    box-shadow: 0px 4px 15px rgba(255, 105, 180, 0.5);
+    font-size: 1rem;
+}
+
+.swal2-icon {
+  z-index: 9999999;
+    border: 3px solid #fff !important;
+}
+/* Định dạng chung cho div - Center màn hình và hiệu ứng làm mờ nền xung quanh */
+#questionScreen {
+    display: none;
+    position: fixed;
+    top: 25%;
+    left: 30%;
+    transform: translate(-20%, -20%);
+    background-color: #fff;
+    padding: 40px 50px;
+    border-radius: 25px;
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 80%;
+    max-width: 500px;
+    max-height: 550px;
+    font-family: 'Arial', sans-serif;
+    z-index: 9999;
+    animation: fadeIn 0.8s ease-in-out, heartBeat 1.5s ease-out infinite alternate;
+    /* Áp dụng hiệu ứng mờ cho nền */
+    backdrop-filter: blur(5px);
+}
+
+/* Hiệu ứng làm mờ xung quanh khi hộp thoại xuất hiện */
+body.overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+/* Hiệu ứng fade-in khi xuất hiện */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -45%) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* Hiệu ứng rung động nhẹ nhàng - 'Heart Beat' */
+@keyframes heartBeat {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.questionScreen h2.typing-effect1 {
+    /* font-size: 28px; */
+    /* color: #FF66B2; */
+    /* font-weight: bold; */
+    /* animation: typing 3s steps(40) 1s 1 normal both; */
+    /* margin-bottom: 25px;
+    letter-spacing: 1.5px; */
+    text-shadow: 0px 0px 20px rgba(255, 102, 178, 0.8), 0px 0px 30px rgba(255, 102, 178, 0.5);
+    /* line-height: 1.5; */
+    font-size: 24px;
+    color: #FF66B2;
+    font-weight: bold;
+    animation: typing 3s steps(30) 1s 1 normal both;
+}
+.typing-effect1 {
+    font-size: 26px;
+    line-height: 1.4;
+    color: #FF66B2;
+    font-weight: bold;
+    text-align: center;
+    word-wrap: break-word; /* Đảm bảo văn bản có thể xuống dòng */
+    white-space: pre-wrap; /* Giữ các dấu cách và xuống dòng khi cần */
+    overflow-wrap: break-word; /* Tạo hiệu ứng xuống dòng tự động */
+    padding: 0 20px; /* Thêm padding để tránh văn bản bị dính vào viền */
+}
+
+/* Cải tiến hiệu ứng gõ chữ */
+@keyframes typing {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+/* Nút lựa chọn */
+.choice-buttons {
+    margin-top: 20px;
+    display: inline-block;
+}
+
+.btn-love {
+    background-color: #FF66B2;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 25px;
+    cursor: pointer;
+    margin: 10px;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.btn-love:hover {
+    background-color: #ff3385;
+    transform: scale(1.05);
+}
+
+.btn-love:before {
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    animation: heartPop 0.5s forwards;
+}
+
+.btn-love:hover:before {
+    opacity: 1;
+}
+
+@keyframes heartPop {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+}
+
+/* Thêm một chút bóng mờ cho div */
+#questionScreen {
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+}
+/* Cải thiện giao diện cho điện thoại */
+@media (max-width: 768px) {
+  body {
+    background: #2C133B;
+  }
+
+  .container-01 {
+    width: 30%;  /* Mở rộng container-01 ra toàn bộ chiều rộng màn hình */
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .container-01 h2 {
+    font-size: 1.0rem;  /* Giảm kích thước tiêu đề cho dễ đọc trên màn hình nhỏ */
+  }
+
+  .diva {
+    width: 90%;
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .btn {
+    font-size: 0.8rem;  /* Đảm bảo nút có kích thước phù hợp */
+    padding: 5px;
+  }
+
+  .question-icon {
+    font-size: 8vh;  /* Thay đổi kích thước icon cho phù hợp với màn hình nhỏ */
+    left: 90%;
+  }
+
+  /* Hiệu chỉnh cho nút trả lời trong phần thứ hai */
+  #questionScreen {
+    max-width: 90%;  /* Giảm độ rộng của popup */
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 20px 30px;
+    font-size: 1.1rem;
+  }
+
+  .btn-love {
+    padding: 12px 20px;
+    font-size: 1rem;  /* Giảm kích thước nút trên màn hình nhỏ */
+  }
+  
+  /* Tăng khoảng cách giữa các phần tử */
+  .choice-buttons {
+    margin-top: 15px;
+  }
+}
+
+/* Cải thiện giao diện cho desktop */
+@media (min-width: 769px) {
+  .container-01 {
+    width: 35%;
+    top: 39%;
+    left: 64%;
+    transform: translateX(-50%);
+  }
+
+  .btn {
+    font-size: 0.8rem;  /* Kích thước nút lớn hơn trên desktop */
+    padding: 10px;
+  }
+
+  .question-icon {
+    font-size: 10vh;  /* Kích thước icon lớn trên desktop */
+    left: 95%;
+  }
+}
+    </style>
+    <title>Noel tặng cậu</title>
+</head>
+<body>
+  <div class="container">
+      <img src="https://3d-xmas-tree.vercel.app/preview.png" class="loading-placeholder">
+      <iframe class="preview" src="https://3d-xmas-tree.vercel.app/"></iframe>
+      <!-- Icon "?" -->
+      <div class="question-icon" id="question-icon">?</div>
+      <div class="container-01" style="z-index: 9999999999; display: none;">
+          <h2 class="typing-effect" style="display: none;">Món quà này có làm cho cậu vui vẻ hơn trong ngày hôm nay không? Mong rằng nụ cười xinh của cậu sẽ hé trước màn hình.</h2>
+          <div class="diva">
+              <button class="btn" style="--clr:#ff22bb; --i:0" onclick="handleChoice(true)">
+                  <span>Tớ thích lắm, yêu cậu ❤️</span>
+              </button>
+              <button class="btn" style="--clr:#00ccff; --i:1" onclick="handleChoice(false)"> 
+                  <span>Chả vui tí nào!</span>
+              </button>
+          </div>
+      </div>
+  </div>
+  <div id="questionScreen" style="display: none;">
+      <h2 class="typing-effect1" style="display: none;">HaHa...Tớ biết tớ đỉnh mà. Mấy lời đáng iu như vậy mai sau nói nhiều chút😁</h2>
+      <div class="choice-buttons">
+          <button class="btn-love" onclick="handleChoice1(true)">Yêu cậu quá đi💖</button>
+          <button class="btn-love" onclick="handleChoice1(false)">Đừng có mơ😒</button>
+      </div>
+  </div>    
+
+  <script>
+      // Xử lý khi chọn câu trả lời trong phần đầu tiên
+      function handleChoice1(accepted) {
+          if (accepted) {
+              console.log(accepted);
+              window.location.href = "index.html"; // Chuyển trang khi chọn "Yêu cậu mất"
+          } else {
+              const button = document.querySelector('button[onclick="handleChoice1(false)"]');
+              const buttonWidth = button.offsetWidth;
+              const buttonHeight = button.offsetHeight;
+              
+              // Tính toán giới hạn để nút không vượt qua màn hình
+              const maxX = window.innerWidth - buttonWidth;
+              const maxY = window.innerHeight - buttonHeight;
+
+              // Tạo vị trí ngẫu nhiên cho nút nhưng đảm bảo nó không ra ngoài màn hình
+              const newPosX = Math.random() * maxX;
+              const newPosY = Math.random() * maxY;
+
+              button.style.position = 'fixed';
+              button.style.left = `${newPosX}px`;  // Vị trí ngang
+              button.style.top = `${newPosY}px`;   // Vị trí dọc
+
+              // Thêm hiệu ứng chuyển động mượt mà
+              button.style.transition = 'left 0.5s ease, top 0.5s ease';
+              button.style.display = 'block';  
+          }
+      }
+
+      // Xử lý khi chọn câu trả lời trong phần đầu tiên
+// Đảm bảo vị trí của nút được tính toán hợp lý trên các màn hình nhỏ
+function handleChoice(accepted) {
+    const questionScreen = document.getElementById('questionScreen');
+    const container01 = document.querySelector('.container-01'); // Sửa lại để dùng querySelector thay vì getElementsByClassName
+
+    if (accepted) {
+        questionScreen.style.display = 'block';  
+        container01.style.display = 'none';
+    } else {
+        const button = document.querySelector('button[onclick="handleChoice(false)"]');
+        const buttonWidth = button.offsetWidth;
+        const buttonHeight = button.offsetHeight;
+
+        // Tính toán giới hạn để nút không vượt qua màn hình
+        const maxX = window.innerWidth - buttonWidth;
+        const maxY = window.innerHeight - buttonHeight;
+
+        // Tạo vị trí ngẫu nhiên cho nút nhưng đảm bảo nó không ra ngoài màn hình
+        const newPosX = Math.random() * maxX;
+        const newPosY = Math.random() * maxY;
+
+        button.style.position = 'fixed';
+        button.style.left = `${newPosX}px`;  // Vị trí ngang
+        button.style.top = `${newPosY}px`;   // Vị trí dọc
+
+        // Thêm hiệu ứng chuyển động mượt mà
+        button.style.transition = 'left 0.5s ease, top 0.5s ease';
+        button.style.display = 'block';  
+    }
+}
+
+      // Xử lý sự kiện khi nhấn icon "?"
+      document.getElementById('question-icon').addEventListener('click', function() {
+          const container01 = document.querySelector('.container-01');
+          
+          // Toggle visibility với hiệu ứng chuyển động mượt mà
+          if (container01.classList.contains('show')) {
+              container01.classList.remove('show');
+              setTimeout(() => {
+                  container01.style.display = "none";  // Ẩn đi sau khi hoàn thành hiệu ứng
+              }, 500);  // Thời gian trễ để hiệu ứng hoàn thành (500ms)
+          } else {
+              container01.style.display = "flex";  // Hiển thị dưới dạng flex
+              setTimeout(() => {
+                  container01.classList.add('show');  // Thêm lớp show để áp dụng hiệu ứng
+              }, 10);  // Một chút trễ để đảm bảo display: flex có hiệu lực trước khi thêm hiệu ứng
+          }
+      });
+      document.querySelector(".preview").addEventListener("load", function() {
+        document.querySelector(".loading-placeholder").style.display = "none";
+      })
+      
+// Hàm xử lý hiển thị chữ và tự động xuống dòng
+function typeTextWithLineBreaks(textElement) {
+  const fullText = textElement.textContent;
+
+  // Thực hiện xóa văn bản cũ trong 0,001s bằng cách sử dụng setTimeout
+  setTimeout(() => {
+    textElement.textContent = '';  // Xóa văn bản cũ nhanh chóng
+  }, 1); // 1ms là một thời gian rất ngắn nhưng vẫn đủ để thực hiện xóa
+
+  let i = 0;
+  let currentLine = ''; // Dùng để theo dõi dòng hiện tại
+  let lines = []; // Lưu trữ các dòng của văn bản
+
+  textElement.style.display = 'block';
+
+  // Tạo một interval để xuất từng chữ một
+  const interval = setInterval(() => {
+    currentLine += fullText[i];
+
+    // Cập nhật textContent với tất cả các dòng
+    textElement.textContent = lines.join('\n') + currentLine;
+
+    // Kiểm tra nếu dòng hiện tại đã đầy và cần phải xuống dòng
+    if (textElement.scrollWidth > textElement.offsetWidth) {
+      lines.push(currentLine.trim()); // Lưu dòng hiện tại
+      currentLine = ''; // Bắt đầu dòng mới
+    }
+
+    i++;
+
+    // Dừng lại khi đã gõ hết văn bản
+    if (i >= fullText.length) {
+      clearInterval(interval); // Dừng interval
+      if (currentLine.length > 0) {
+        lines.push(currentLine); // Lưu dòng cuối cùng nếu có
+      }
+      textElement.textContent = lines.join('\n'); // Cập nhật lại toàn bộ văn bản sau khi kết thúc
+    }
+  }, 100); // Tốc độ gõ (100ms mỗi ký tự)
+}
+
+// Khi questionScreen xuất hiện, gọi hàm này
+document.getElementById('questionScreen').addEventListener('animationend', function () {
+  const textElement1 = document.querySelector('.typing-effect1');
+  typeTextWithLineBreaks(textElement1); // Chạy hiệu ứng typing sau khi xuất hiện
+});
+
+document.getElementById('question-icon').addEventListener('click', function () {
+  const textElement = document.querySelector('.typing-effect');
+  typeTextWithLineBreaks(textElement); // Chạy hiệu ứng typing sau khi xuất hiện
+});
+      </script>
+</body>
+</html>
