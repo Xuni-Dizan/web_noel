@@ -493,7 +493,7 @@ h3.typing-effect1 {
             <h3 class="typing-effect1" style="display: none;">Trước khi nhận món quà siu to khổng lồ của tớ thì hãy đánh giá độ đẹp trai của tấm thân này được bao nhiêu trên thang điểm 10 trong mắt cậu đây.</h3>
             <!-- <button id="xac-nhan" style="display: none;" class="btn-gift" onclick="openGift()">Mở món quà</button> -->
             <div class="dark">
-                <button  id="xac-nhan" type="button" style="display: none;" onclick="openGift()">
+                <button  id="xac-nhan" type="button" style="display: none;z-index: 999999999;" onclick="openGift()">
                     Xác nhận
                 </button>
             </div>
@@ -508,7 +508,7 @@ h3.typing-effect1 {
                 <div class="btn minus" onclick="minus()">-</div>
             </div>
         </div>
-        <div id="message" style="display: none;">Mấy đây, mấy đây, tò mò chết tớ mất 👀</div>
+        <div id="message" style="display: none;">Cùng thay đổi nhé! ❤️</div>
     </div>
 
     <div class="snow"></div>
@@ -567,8 +567,6 @@ function minus() {
   meter.style.width = x * 10 + '%';
   updateMessage();
 }
-    </script>
-    <script>
 // Hàm xử lý hiển thị chữ và tự động xuống dòng
 function typeTextWithLineBreaks(textElement) {
     const fullText = textElement.textContent;
@@ -612,7 +610,7 @@ function typeTextWithLineBreaks(textElement) {
             document.querySelector('.box').style.display = 'flex'; // Hiển thị box (spinner)
             document.getElementById('message').style.display = 'block'; // Hiển thị món quà
         }
-    }, 90); // Tốc độ gõ (100ms mỗi ký tự)
+    }, 100); // Tốc độ gõ (100ms mỗi ký tự)
 }
         let noChoiceCount = 0;
 
@@ -688,7 +686,17 @@ function handleChoice(accepted) {
     });
 }
 function openGift() {
-    window.location.href = 'gift-box.html';
+    if (x===10) {
+                window.location.href = "gift.html";
+            } else {
+                const button = document.querySelector('button[onclick="openGift()"]');
+                const maxX = window.innerWidth - button.offsetWidth;
+                const maxY = window.innerHeight - button.offsetHeight;
+                
+                button.style.position = 'fixed';
+                button.style.left = Math.random() * maxX + 'px';
+                button.style.top = Math.random() * maxY + 'px';
+            }
 }
 function moveBg(e) {
     const rect = e.target.getBoundingClientRect();
