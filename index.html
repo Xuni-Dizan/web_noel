@@ -84,7 +84,7 @@ body:before {
     margin-bottom: 10px;
     text-align: center;
 }
-#finalGiftScreen_all #finalGiftScreen .btn-love{
+#finalGiftScreen_all{
     margin-bottom: 20%;
 }
 /* Đảm bảo button và box được ẩn khi tải trang */
@@ -99,28 +99,24 @@ body:before {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* flex: 1; */
     padding: 20px;
     background: rgba(255, 255, 255, 0.9);
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
     text-align: center;
     max-height: 90%;
-    margin-right: 20px; /* Đảm bảo có khoảng cách với .box */
 }
 /* Box */
 .box {
     position: relative;
-    position: relative;
     margin-top: 10%;
-    justify-content: space-around;
     width: 83%; 
     max-width: 1000px; /* Đặt max-width để không quá rộng */
     height: 70px; 
     display: flex;
-    justify-content: space-between;
-    align-items: center; 
-    background: linear-gradient(135deg, #6a82fb, #fc5c7d);
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
     border-radius: 50px;
     box-shadow: 0 5px 50px rgba(0, 0, 0, 0.5);
     padding: 0 30px; 
@@ -168,14 +164,15 @@ body:before {
     text-align: center;
     line-height: 50px;
     background: #fff;
-    font-size: 1.8em;
+    font-size: 1.5em;
     justify-items: center;
     color: #444;
     border-radius: 50%;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     font-weight: 600;
-    transition: all 0.3s ease;
+    transition: background 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 10px rgba(255, 105, 180, 0.5);
 }
 
 .btn:hover {
@@ -217,48 +214,294 @@ body:before {
 
 
 #questionScreen {
-    background: linear-gradient(145deg, #ffe6f0, #ffb3c6);
-    background-size: cover;
-    animation: backgroundPulse 5s infinite alternate;
-    box-shadow: 0px 0px 20px rgba(255, 99, 132, 0.5);
+    background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,250,250,0.9) 100%);
+    border: 2px solid #ffd1dc;
+    border-radius: 25px;
+    box-shadow: 0 8px 20px rgba(255, 182, 193, 0.5);
+    padding: 40px;
+    animation: fadeIn 2s ease-in-out;
+    position: relative;
+    overflow: hidden;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
-@keyframes backgroundPulse {
-    0% { background: linear-gradient(145deg, #ffe6f0, #ffb3c6); }
-    100% { background: linear-gradient(145deg, #ff99cc, #ff66b3); }
+/* Dải ruy băng đỏ quanh khung */
+#questionScreen::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: calc(100% + 20px);
+    height: calc(100% + 20px);
+    border: 3px dashed #ff69b4;
+    border-radius: 30px;
+    pointer-events: none;
+    animation: ribbonMove 5s linear infinite;
 }
 
-/* Điều chỉnh layout cho responsive */
-@media only screen and (max-width: 768px) {
-    #finalGiftScreen_all {
-        top: 10%;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 90%;
-        height: 80%;
-    }
-
-    #finalGiftScreen {
-        padding: 10px;
-        margin-right: 10px;
-    }
-
+/* Thêm hình ảnh tuyết rơi */
+#questionScreen::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    opacity: 0.1;
+    animation: snow 15s linear infinite;
+    pointer-events: none;
 }
 
-@media only screen and (max-width: 480px) {
-    #finalGiftScreen_all {
-        top: 5%;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 90%;
-        height: 90%;
-    }
+/* Thêm đèn lấp lánh quanh khung */
+.decorations {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+}
 
-    #finalGiftScreen {
-        padding: 5px;
-        margin-right: 10px;
-    }
+.decorations .string-light {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Khoảng cách giữa các đèn */
+    position: relative;
+}
 
+.string-light::before, .string-light::after {
+    content: '';
+    flex: 1;
+    height: 2px;
+    background-color: #ff69b4; /* Màu dây đèn */
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.light {
+    width: 20px;
+    height: 20px;
+    background-color: #ffeb3b; /* Màu đèn */
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 235, 59, 0.8), 0 0 20px rgba(255, 235, 59, 0.5);
+    animation: blink 2s infinite;
+    position: relative;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.light:nth-child(odd) {
+    background-color: #ff4081; /* Màu đèn khác cho đèn lẻ */
+    box-shadow: 0 0 10px rgba(255, 64, 129, 0.8), 0 0 20px rgba(255, 64, 129, 0.5);
+    animation-duration: 1.5s;
+}
+
+.light:nth-child(even) {
+    background-color: #ffeb3b; /* Màu đèn khác cho đèn chẵn */
+    box-shadow: 0 0 10px rgba(255, 235, 59, 0.8), 0 0 20px rgba(255, 235, 59, 0.5);
+    animation-duration: 2.5s;
+}
+
+/* Thay đổi phông chữ và màu sắc cho tiêu đề */
+#questionScreen h2 {
+    font-family: 'Great Vibes', cursive;
+    color: #ff4081;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease;
+}
+
+#questionScreen h2:hover {
+    transform: translateY(-5px) rotate(-1deg);
+}
+
+/* Thêm biểu tượng tương tác */
+.interactive-icons {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    gap: 15px;
+    z-index: 1;
+}
+
+.interactive-icons img {
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.interactive-icons img:hover {
+    transform: scale(1.2);
+    opacity: 0.8;
+}
+
+/* Thay đổi kiểu nút */
+.choice-buttons .btn-love1 {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 15px 30px;
+    border-radius: 30px;
+    box-shadow: 0px 4px 15px rgba(255, 105, 180, 0.6);
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+
+.choice-buttons .btn-love1::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%) rotate(45deg);
+    transition: all 0.75s;
+}
+
+.choice-buttons .btn-love1:hover::after {
+    width: 0%;
+    height: 0%;
+}
+
+.choice-buttons .btn-love1:hover {
+    background: linear-gradient(135deg, #ff6ec4 0%, #7873f5 100%);
+    transform: scale(1.05);
+    box-shadow: 0px 6px 20px rgba(255, 105, 180, 0.8);
+}
+
+/* Hiệu ứng fadeIn */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hiệu ứng tuyết rơi */
+@keyframes snow {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(100vh); }
+}
+
+/* Hiệu ứng dải ruy băng di chuyển */
+@keyframes ribbonMove {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(15deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* Hiệu ứng đèn lấp lánh */
+@keyframes twinkle {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 0.4; }
+}
+
+/* Biểu tượng trang trí tương tác */
+.interactive-icons img {
+    animation: float 6s ease-in-out infinite;
+}
+
+.interactive-icons .heart-icon:hover {
+    transform: scale(1.3) rotate(15deg);
+    box-shadow: 0 0 10px rgba(255, 105, 180, 0.7);
+}
+
+.interactive-icons .star-icon:hover {
+    transform: scale(1.3) rotate(-15deg);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+}
+
+.interactive-icons .candy-icon:hover {
+    transform: scale(1.3) rotate(10deg);
+    box-shadow: 0 0 10px rgba(255, 99, 71, 0.7);
+}
+
+/* Hiệu ứng float cho biểu tượng */
+@keyframes float {
+    0% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(360deg); }
+    100% { transform: translateY(0) rotate(720deg); }
+}
+
+/* Hiệu ứng tuyết rơi nhẹ nhàng */
+.snowflake {
+    position: fixed;
+    top: -10px;
+    pointer-events: none;
+    z-index: 1000;
+    animation: snowflakeFall 10s linear infinite;
+}
+
+@keyframes snowflakeFall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Đèn lấp lánh di chuyển */
+.string-light img {
+    animation: blink 3s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Avatar */
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease, border 0.3s ease;
+}
+
+.avatar:hover {
+    transform: scale(1.1);
+}
+
+/* Hiệu ứng gửi tình cảm */
+@keyframes sendLove {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(100px, -200px);
+        opacity: 0;
+    }
+}
+
+.love-icon {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    animation: sendLove 2s forwards;
 }
 
 #journeyScreen {
@@ -275,23 +518,37 @@ body:before {
     100% { transform: scale(1.05); }
 }
 
-/* Thông báo popup cute */
+/* Tùy chỉnh popup chọn nhạc trong SweetAlert2 */
 .swal2-popup {
-    font-family: 'Kalam', cursive;
-    background: linear-gradient(to right, #ff99cc, #ff66b3);
-    border-radius: 20px;
-    color: #fff;
+    width: 90% !important;
+    max-width: 400px !important;
+    padding: 20px !important;
+    border-radius: 15px !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%) !important;
 }
 
+/* Tiêu đề trong popup */
 .swal2-title {
-    font-size: 2rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    font-size: 1.6rem !important;
+    color: #fff !important;
+    text-align: center !important;
+    margin-bottom: 15px !important;
 }
 
+/* Nội dung trong popup */
 .swal2-content {
-    font-size: 1.2rem;
+    font-size: 1.2rem !important;
+    color: #fff !important;
+    text-align: center !important;
+    margin-bottom: 20px !important;
 }
-
+.swal2-select option {
+    padding: 10px !important;
+    font-size: 1rem !important;
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    color: #333 !important;
+}
 .swal2-confirm {
     background-color: #ff69b4 !important;
     border-radius: 30px;
@@ -301,6 +558,23 @@ body:before {
 
 .swal2-icon {
     border: 3px solid #fff !important;
+}
+/* Select input trong popup */
+.swal2-select {
+    width: 80% !important;
+    padding: 12px !important;
+    font-size: 1rem !important;
+    border-radius: 8px !important;
+    border: 2px solid #fff !important;
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    color: #333 !important;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23fff" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>') !important;
+    background-repeat: no-repeat !important;
+    background-position: right 10px center !important;
+    background-size: 1em !important;
 }
 @keyframes boxGlow {
     0% { box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.6); }
@@ -313,7 +587,7 @@ body:before {
     margin-top: 20px;
 }
 
-.choice-buttons .btn-love {
+.choice-buttons .btn-love1 {
     background-color: #ff99cc;
     color: white;
     font-size: 1.2rem;
@@ -323,7 +597,7 @@ body:before {
     transition: transform 0.3s ease;
 }
 
-.choice-buttons .btn-love:hover {
+.choice-buttons .btn-love1:hover {
     transform: scale(1.1);
     background-color: #ff66b3;
 }
@@ -400,12 +674,12 @@ h2, p {
     border-radius: 50%;
     opacity: 0.8;
 }
-.btn-love:active {
+.btn-love1:active {
     animation: popButton 0.2s ease-in-out;
 }
 
 /* Hiệu ứng khi nhấn nút */
-.btn-love {
+.btn-love1 {
     background-color: #ff4081;
     color: white;
     border: none;
@@ -418,7 +692,7 @@ h2, p {
     transition: background-color 0.3s ease;
 }
 
-.btn-love:hover {
+.btn-love1:hover {
     background-color: #e91e63;
 }
 h3.typing-effect1 {
@@ -467,38 +741,423 @@ h3.typing-effect1 {
     padding: 5px;
   }
 }
+#finalGiftScreen_all #xac-nhan.moved {
+    position: fixed;
+    top: 10px;  /* Di chuyển lên trên cùng */
+    left: 90%;  /* Di chuyển ra bên phải */
+    transform: translateX(-50%);  /* Căn giữa */
+}
+
+/* Thêm hiệu ứng tuyết rơi nhẹ nhàng */
+.snowfall {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.snowfall::before,
+.snowfall::after {
+    content: '';
+    position: absolute;
+    top: -10%;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://i.imgur.com/5KQf5bG.png'); /* Hình ảnh tuyết */
+    animation: snow 10s linear infinite;
+    opacity: 0.5;
+}
+
+/* Trang trí vòng hoa garland */
+.decorative-garland {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+}
+
+.ornament {
+    width: 20px;
+    height: 20px;
+    background-color: #ff6ec4;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 105, 180, 0.7);
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Hiệu ứng trái tim nhấp nháy */
+.heart-animation {
+    font-size: 2rem;
+    animation: heartbeat 1.5s infinite;
+    margin-bottom: 20px;
+}
+
+/* Đèn lấp lánh quanh container */
+.twinkling-lights {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.twinkling-lights .light {
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    animation: twinkle 2s infinite;
+}
+
+/* Animations */
+@keyframes snow {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(100vh) rotate(360deg); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    25%, 75% { transform: scale(1.2); }
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 0.3; }
+}
+
+/* Cập nhật phong cách cho container */
+.container {
+    background: rgba(255, 255, 255, 0.9);
+    width: 90%;
+    max-width: 600px;
+    height: 80vh;
+    border-radius: 25px;
+    box-shadow: 0 0 40px rgba(255, 105, 180, 0.6);
+    position: relative;
+    overflow: hidden;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: glow 5s infinite alternate;
+}
+
+/* Hiệu ứng phát sáng nhẹ nhàng */
+@keyframes glow {
+    from {
+        box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+    }
+    to {
+        box-shadow: 0 0 40px rgba(255, 105, 180, 0.9);
+    }
+}
+
+/* Nút bắt đầu với hiệu ứng dải sáng */
+.btn-love1 {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 15px 30px;
+    border-radius: 30px;
+    box-shadow: 0px 4px 20px rgba(255, 105, 180, 0.6);
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.btn-love1::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(45deg);
+    transition: all 0.5s;
+}
+
+.btn-love1:hover::before {
+    top: 150%;
+    left: 150%;
+}
+
+.btn-love1:hover {
+    background: linear-gradient(135deg, #ff6ec4 0%, #7873f5 100%);
+    transform: scale(1.05);
+    box-shadow: 0px 6px 25px rgba(255, 105, 180, 0.8);
+}
+
+/* Cải tiến cho Màn Hình 1: initialMessage */
+
+/* Thêm hiệu ứng lấp lánh */
+.sparkles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    animation: sparkle 5s linear infinite;
+    pointer-events: none;
+}
+
+/* Hiệu ứng sparkle */
+@keyframes sparkle {
+    0% { background-position: 0 0; }
+    100% { background-position: 100px 100px; }
+}
+
+
+@keyframes fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+
+/* Cải thiện hiệu ứng typing cho tiêu đề */
+.typing-effect {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    color: #ff4081;
+    text-shadow: 2px 2px 8px rgba(255, 105, 180, 0.7);
+    position: relative;
+    z-index: 2;
+    margin-bottom: 20px;
+}
+
+/* Thêm hiệu ứng đèn nhấp nháy */
+.twinkling-lights .light {
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    animation: twinkle 2s infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 0.3; }
+}
+
+/* Nút bắt đầu với hiệu ứng ánh sáng */
+.btn-love1 {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-love1::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: rotate(45deg);
+    transition: all 0.5s;
+}
+
+.btn-love1:hover::after {
+    top: 150%;
+    left: 150%;
+}
+
+/* Thêm hiệu ứng nhấp nháy ngôi sao */
+.decorative-garland .ornament {
+    animation: twinkleOrnament 4s infinite;
+}
+
+@keyframes twinkleOrnament {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Thêm hiệu ứng nhấp nháy trái tim */
+.heart-animation {
+    font-size: 3rem;
+    animation: heartbeat 1.5s infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+/* Responsive adjustments */
+@media only screen and (max-width: 768px) {
+    .typing-effect {
+        font-size: 2rem;
+    }
+    .btn-love1 {
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .typing-effect {
+        font-size: 1.5rem;
+    }
+    .btn-love1 {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}
+/* Styles cho container của nút nhạc và tooltip */
+.music-button-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Styles cho nút nhạc */
+.music-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    position: relative;
+}
+
+/* Styles cho tooltip */
+.tooltip-text {
+    visibility: hidden;
+    width: 220px;
+    background-color: rgba(255, 105, 180, 0.9);
+    color: #fff;
+    text-align: center;
+    border-radius: 10px;
+    padding: 5px 10px;
+    position: absolute;
+    bottom: -250%; /* Vị trí trên nút */
+    left: -200%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.9rem;
+    pointer-events: none;
+}
+
+/* Hiển thị tooltip khi hover */
+.music-button:hover + .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+@media only screen and (max-width: 480px) {
+    .swal2-popup {
+        width: 95% !important;
+        padding: 15px !important;
+    }
+
+    .swal2-title {
+        font-size: 1.3rem !important;
+    }
+
+    .swal2-content {
+        font-size: 1rem !important;
+    }
+
+    .swal2-select {
+        font-size: 0.9rem !important;
+        padding: 8px !important;
+    }
+
+    .swal2-confirm, .swal2-cancel {
+        font-size: 0.9rem !important;
+        padding: 10px !important;
+    }
+}
+/* Tùy chỉnh biểu tượng mũi tên trong select khi ở chế độ landscape */
+@media (min-width: 481px) and (orientation: landscape) {
+    .swal2-select {
+        background-position: right 12px center !important;
+    }
+}
     </style>
 </head>
 <body>
     <!-- Màn Hình 1: Chào Cậu, Ngày Noel Đặc Biệt -->
-    <div class="container" id="initialMessage" >
-        <div class="heart">❤️</div>
+    <div class="container" id="initialMessage">
+        <!-- <div class="snowfall"></div> -->
+        <div class="decorative-garland">
+            <span class="ornament"></span>
+            <span class="ornament"></span>
+            <span class="ornament"></span>
+            <span class="ornament"></span>
+        </div>
+        <div class="heart-animation">❤️</div>
+        
+        <!-- Thêm hiệu ứng lấp lánh -->
+        <div class="sparkles"></div>
+        
         <h1 class="typing-effect">Chào cậu, Ngày Noel Đặc Biệt!</h1>
         <p>Chúc Cậu Một Giáng Sinh Vui Vẻ...</p>
-        <button class="btn-love" onclick="startJourney()">Bắt đầu nhé</button>
+        <button class="btn-love1" onclick="playSound('mp3/sound_cute_01.MP3'); startJourney()">Bắt đầu nhé</button>
+        <div class="twinkling-lights">
+            <span class="light"></span>
+            <span class="light"></span>
+            <span class="light"></span>
+            <span class="light"></span>
+        </div>
     </div>
-
     <!-- Màn Hình 2: Một Câu Hỏi Đặc Biệt -->
     <div id="questionScreen" style="display: none;">
-        <!-- <div class="gift-box"></div> -->
-        <h2 class="typing-effect">Cậu có muốn cùng tớ trải qua mùa Giáng Sinh này không?</h2>
-        <div class="choice-buttons">
-            <button class="btn-love" onclick="handleChoice(true)">Có</button>
-            <button class="btn-love" onclick="handleChoice(false)">Không</button>
-        </div>
-    </div>
-    <!-- Màn Hình 4: Món Quà Giáng Sinh -->
-    <div id="finalGiftScreen_all" style="display: none;">
-        <div id="finalGiftScreen">
-            <h3 class="typing-effect1" style="display: none;">Trước khi nhận món quà siu to khổng lồ của tớ thì hãy đánh giá độ đẹp trai của tấm thân này được bao nhiêu trên thang điểm 10 trong mắt cậu đây.</h3>
-            <!-- <button id="xac-nhan" style="display: none;" class="btn-gift" onclick="openGift()">Mở món quà</button> -->
-            <div class="dark">
-                <button  id="xac-nhan" type="button" style="display: none;z-index: 999999999;" onclick="openGift()">
-                    Xác nhận
-                </button>
+        <div class="decorations">
+            <div class="string-light">
+                <span class="light"></span>
+                <span class="light"></span>
+                <span class="light"></span>
+                <span class="light"></span>
             </div>
         </div>
-        <div class="box" >
+        <div class="interactive-icons">
+            <img src="https://e1.pngegg.com/pngimages/925/455/png-clipart-pere-noel-cerf-jour-de-noel-dessin-anime-rennes-animal-dessin-nez.png" alt="Heart" class="heart-icon">
+            <img src="https://w7.pngwing.com/pngs/444/276/png-transparent-rudolph-reindeer-santa-claus-cuteness-baby-deer-s-antler-mammal-carnivoran.png" alt="Star" class="star-icon">
+            <img src="https://png.pngtree.com/png-vector/20201106/ourlarge/pngtree-wink-christmas-elk-clip-art-png-image_2395927.jpg" alt="Candy" class="candy-icon">
+        </div>
+        <h2 class="typing-effect">Cậu có muốn cùng tớ trải qua mùa Giáng Sinh này không?</h2>
+        <div class="choice-buttons">
+            <button class="btn-love1" onclick="handleChoice(true)">Có</button>
+            <button class="btn-love1" onclick="handleChoice(false)">Không</button>
+        </div>
+    </div>
+    <!-- Màn Hình 3: Món Quà Giáng Sinh -->
+    <div id="finalGiftScreen_all" style="display: none;">
+        <!-- <div class="snowfall"></div> -->
+        <div class="decorative-garland">
+            <span class="ornament"></span>
+            <span class="ornament"></span>
+            <span class="ornament"></span>
+            <span class="ornament"></span>
+        </div>
+        <div id="finalGiftScreen">
+            <h3 class="typing-effect1" style="display: none;">
+                Trước khi nhận món quà siêu to khổng lồ của tớ, hãy đánh giá độ đẹp trai của tấm thân này bao nhiêu trên thang điểm 10 trong mắt cậu đây.
+            </h3>
+            <button id="xac-nhan" type="button" style="display: none; z-index: 999999999;" onclick="openGift()" class="btn-love">
+                Xác nhận
+            </button>
+        </div>
+        <div class="box">
             <div class="spinner">
                 <span id="output"></span>
                 <div class="progress">
@@ -508,11 +1167,32 @@ h3.typing-effect1 {
                 <div class="btn minus" onclick="minus()">-</div>
             </div>
         </div>
-        <div id="message" style="display: none;">Cùng thay đổi nhé! ❤️</div>
+        <div id="message" style="display: none;">Mấy đây, mấy đây, đừng làm tớ buồn đấy nhé! ❤️</div>
+        <!-- Thêm hiệu ứng ánh sáng và ngôi sao -->
+        <div class="twinkling-stars">
+            <span class="star"></span>
+            <span class="star"></span>
+            <span class="star"></span>
+            <span class="star"></span>
+        </div>
+        <!-- Thêm trái tim bay lên -->
+        <div class="floating-hearts">
+            <span class="heart">❤️</span>
+            <span class="heart">❤️</span>
+            <span class="heart">❤️</span>
+        </div>
     </div>
 
     <div class="snow"></div>
 
+    <!-- Thêm âm nhạc nền -->
+    <audio id="background-music" src="mp3/cute_piano.mp3" loop autoplay></audio>
+
+    <!-- Thêm container cho nút nhạc và tooltip -->
+<div class="music-button-container">
+    <button class="music-button" onclick="toggleMusic()">🎵</button>
+    <span class="tooltip-text">❤️ Nhấp một lần để tắt/mở nhạc, nhấp đôi để chọn bài yêu thích! ❤️</span>
+</div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.19/dist/sweetalert2.all.min.js"></script>
     <script>
         let x = 0;
@@ -521,73 +1201,73 @@ let meter = document.getElementById('meter');
 let message = document.getElementById('message');
 output.innerHTML = x;
 
-function updateMessage() {
-    if (x == 0) {
-        message.innerHTML = "Thôi nào! có muốn lấy quà không đây 😩";
-    } else if (x == 10) {
-        message.innerHTML = "Mắt nhìn của cậu thật không tồi, Nếu tớ sinh trước năm1504 tác phẩm của Michelangelo sẽ không còn là bức chân của David 😎";
-    } else if (x < 3) {
-        message.innerHTML = "Chỉ vậy thôi sao 😕";
-    } else if (x < 7) {
-         message.innerHTML = "Tớ đáng iu lắm đó, suy nghĩ thêm đi mà 🥺";
-    } else if (x < 10) {
-        message.innerHTML = "Cô gáii thông minh là cô gái biết tớ xinh trai cỡ nào mà 😏";
-    }
-        message.style.opacity = 1;
-    setTimeout(() => {
-        message.style.opacity = 0;
-    }, 10000); // Hide the message after 2 seconds
-}
-function plus() {
-    if (x >= 10){
-        return false;
-    }
-    if (x >= 4){
-   meter.style.background = "#ff80ab"
-   meter.style.filter = "drop-shadow(0 0 2.5px #ff80ab) drop-shadow(0 0 10px #ff80ab)"
-    }
-    if (x >= 8){
-        meter.style.background = "#ff3385"
-        meter.style.filter = "drop-shadow(0 0 2.5px #ff3385) drop-shadow(0 0 10px #ff3385)"
-         }
-  output.innerHTML= ++x;
-  meter.style.width = x * 10 + '%';
-  updateMessage();
-}
+        function updateMessage() {
+            if (x == 0) {
+                message.innerHTML = "Thôi nào! có muốn lấy quà không đây 😩";
+            } else if (x == 10) {
+                message.innerHTML = "Mắt nhìn của cậu thật không tồi, Nếu tớ sinh trước năm 1504 tác phẩm của Michelangelo sẽ không còn là bức chân của David 😎";
+            } else if (x < 3) {
+                message.innerHTML = "Chỉ vậy thôi sao 😕";
+            } else if (x < 7) {
+                message.innerHTML = "Tớ đáng iu lắm đó, suy nghĩ thêm đi mà 🥺";
+            } else if (x < 10) {
+                message.innerHTML = "Cô gái thông minh là cô gái biết tớ xinh trai cỡ nào mà 😏";
+            }
+            message.style.opacity = 1;
+            setTimeout(() => {
+                message.style.opacity = 0;
+            }, 10000); // Ẩn thông điệp sau 10 giây
+        }
 
-function minus() {
-    if (x <= 0){
-        return false;
-    }
-    if (x <= 6){
-        meter.style.background = "#f00"
-        meter.style.filter = "drop-shadow(0 0 2.5px #f00) drop-shadow(0 0 10px #f00)"
-         }
-  output.innerHTML= --x;
-  meter.style.width = x * 10 + '%';
-  updateMessage();
-}
-// Hàm xử lý hiển thị chữ và tự động xuống dòng
-function typeTextWithLineBreaks(textElement) {
-    const fullText = textElement.textContent;
+        function plus() {
+            if(x>=10){
+                meter.style.background = "#ff4081"
+                meter.style.filter = "drop-shadow(0 0 2.5px #ff4081) drop-shadow(0 0 10px #ff4081)"
+                updateMessage();
+                return false;
+            }
+            if (x >= 0){
+                meter.style.background = "#0f0"
+                meter.style.filter = "drop-shadow(0 0 2.5px #0f0) drop-shadow(0 0 10px #0f0)"
+            }
+            if (x >= 4){
+                meter.style.background = "#ff80ab"
+                meter.style.filter = "drop-shadow(0 0 2.5px #ff80ab) drop-shadow(0 0 10px #ff80ab)"
+            }
+            if (x >= 8){
+                meter.style.background = "#ff3385"
+                meter.style.filter = "drop-shadow(0 0 2.5px #ff3385) drop-shadow(0 0 10px #ff3385)"
+            }
+            output.innerHTML = ++x;
+            meter.style.width = x * 10 + '%';
+        }
 
-    // Thực hiện xóa văn bản cũ trong 0,001s
-    setTimeout(() => {
-        textElement.textContent = '';  // Xóa văn bản cũ nhanh chóng
-    }, 1);
+        function minus() {
+            if (x <= 0){
+                return false;
+            }
+            if (x <= 6){
+                meter.style.background = "#f00"
+                meter.style.filter = "drop-shadow(0 0 2.5px #f00) drop-shadow(0 0 10px #f00)"
+            }
+            output.innerHTML = --x;
+            meter.style.width = x * 10 + '%'
+        }
 
-    let i = 0;
-    let currentLine = ''; // Dùng để theo dõi dòng hiện tại
-    let lines = []; // Lưu trữ các dòng của văn bản
+        // Hàm xử lý hiển thị chữ và tự động xuống dòng
+        function typeTextWithLineBreaks(textElement) {
+            const fullText = textElement.textContent;
+            textElement.textContent = '';  // Xóa văn bản cũ nhanh chóng
+            let i = 0;
+            let currentLine = ''; // Dùng để theo dõi dòng hiện tại
+            let lines = []; // Lưu trữ các dòng của văn bản
 
     textElement.style.display = 'block'; 
 
-    // Tạo một interval để xuất từng chữ một
-    const interval = setInterval(() => {
-        currentLine += fullText[i];
-
-        // Cập nhật textContent với tất cả các dòng
-        textElement.textContent = lines.join('\n') + currentLine;
+            // Tạo một interval để xuất từng chữ một
+            const interval = setInterval(() => {
+                currentLine += fullText[i];
+                textElement.textContent = lines.join('\n') + currentLine;
 
         // Kiểm tra nếu dòng hiện tại đã đầy và cần phải xuống dòng
         if (textElement.scrollWidth > textElement.offsetWidth) {
@@ -605,13 +1285,20 @@ function typeTextWithLineBreaks(textElement) {
             }
             textElement.textContent = lines.join('\n'); // Cập nhật lại toàn bộ văn bản sau khi kết thúc
 
-            // Hiển thị button và box khi hoàn thành typing
-            document.getElementById('xac-nhan').style.display = 'block';
-            document.querySelector('.box').style.display = 'flex'; // Hiển thị box (spinner)
-            document.getElementById('message').style.display = 'block'; // Hiển thị món quà
+                    // Hiển thị button và box khi hoàn thành typing
+                    document.getElementById('xac-nhan').style.display = 'block';
+                    document.querySelector('.box').style.display = 'flex'; // Hiển thị box (spinner)
+                    document.getElementById('message').style.display = 'block'; // Hiển thị thông điệp
+                    
+                    // Ẩn floating-hearts sau khi hoàn thành typing
+                    const floatingHearts = document.querySelector('.floating-hearts');
+                    if (floatingHearts) {
+                        floatingHearts.style.display = 'none';
+                    }
+                }
+            }, 50); // Tốc độ gõ (80ms mỗi ký tự)
         }
-    }, 100); // Tốc độ gõ (100ms mỗi ký tự)
-}
+
         let noChoiceCount = 0;
 
         function startJourney() {
@@ -628,83 +1315,311 @@ function typeTextWithLineBreaks(textElement) {
                     }
                 });
 
-                screens.initialMessage.style.display = 'none';;
-                screens.questionScreen.style.display = 'block';;
+                screens.initialMessage.style.display = 'none';
+                screens.questionScreen.style.display = 'block';
             } catch (error) {
                 console.error(error);
             }
         }
 
-function handleChoice(accepted) {
-    const buttons = document.querySelectorAll('.btn-love');
-    buttons.forEach(button => {
-        button.style.transition = 'all 0.3s ease-in-out';
-        if (accepted) {
-            button.style.transform = 'scale(1.2)';
-            Swal.fire({
-                title: 'Tớ rất vui!',
-                text: 'Cùng tớ tạo nên mùa Giáng Sinh tuyệt vời nhé!',
-                imageUrl: 'https://media.giphy.com/media/UVk5yzljef0kGiayL1/giphy.gif?cid=790b76117qx8iz8vg39p14mneo0nu1ch5g9aq9cwsbjsvxx9&ep=v1_gifs_search&rid=giphy.gif&ct=g',  // Đường dẫn đến ảnh động (GIF)
-                imageWidth: 400,
-                imageHeight: 200,
-                imageAlt: 'GIF image',
-                confirmButtonColor: '#ff4b6e',
-                confirmButtonText: 'Đồng ý 2 tay lun nè'
-            }).then((result) => {
-                document.getElementById('questionScreen').style.display = 'none';
-                document.getElementById('finalGiftScreen_all').style.display = 'block'; 
-                if (result.isConfirmed) {
-                    const textElement1 = document.querySelector('.typing-effect1');
-                    typeTextWithLineBreaks(textElement1); // Chạy hiệu ứng typing sau khi xuất hiện
+        // Hàm xử lý lựa chọn
+        function handleChoice(accepted) {
+            const buttons = document.querySelectorAll('.btn-love1');
+            buttons.forEach(button => {
+                button.style.transition = 'all 0.3s ease-in-out';
+                if (accepted) {
+                    button.style.transform = 'scale(1.2)';
+                    playSound('mp3/sound_cute_01.MP3');
+                    Swal.fire({
+                        title: 'Tớ rất vui!',
+                        text: 'Cùng tớ tạo nên mùa Giáng Sinh tuyệt vời nhé!',
+                        imageUrl: 'https://media.giphy.com/media/UVk5yzljef0kGiayL1/giphy.gif',
+                        imageWidth: 400,
+                        imageHeight: 200,
+                        imageAlt: 'GIF image',
+                        confirmButtonColor: '#ff4b6e',
+                        confirmButtonText: 'Đồng ý 2 tay lun nè'
+                    }).then((result) => {
+                        document.getElementById('questionScreen').style.display = 'none';
+                        document.getElementById('finalGiftScreen_all').style.display = 'block'; 
+                        if (result.isConfirmed) {
+                            const textElement1 = document.querySelector('.typing-effect1');
+                            typeTextWithLineBreaks(textElement1); // Chạy hiệu ứng typing sau khi xuất hiện
+                        }
+                    });
+                } else {
+                    button.style.transform = 'scale(0.8)';
+                    playSound('https://www.soundjay.com/buttons/sounds/button-10.mp3');
+                    noChoiceCount++;
+                    if (noChoiceCount >=3 && noChoiceCount <=17) {
+                        const rejectButton = document.querySelector('button[onclick="handleChoice(false)"]');
+                        const maxX = window.innerWidth - rejectButton.offsetWidth;
+                        const maxY = window.innerHeight - rejectButton.offsetHeight;
+                        
+                        rejectButton.style.position = 'fixed';
+                        rejectButton.style.left = Math.random() * maxX + 'px';
+                        rejectButton.style.top = Math.random() * maxY + 'px';
+                        sendLove(); // Gửi tình cảm
+                    } else {
+                        if (noChoiceCount > 18){
+                            Swal.fire({
+                                title: 'Dù sao...😔',
+                                text: 'Tớ vẫn luôn quý mến cậu, chúc cậu Giáng Sinh ấm áp!',
+                                imageUrl: 'https://media.giphy.com/media/3o6wrebnKWmvx4ZBio/giphy.gif',  // Đường dẫn đến ảnh động (GIF)
+                                imageWidth: 400,
+                                imageHeight: 200,
+                                imageAlt: 'GIF image',  // Mô tả cho ảnh động
+                                confirmButtonColor: '#ff4b6e'
+                            });
+                        }
+                    }
                 }
             });
-        } else {
-            button.style.transform = 'scale(0.8)';
-            noChoiceCount++;
-            if (noChoiceCount >=3&&noChoiceCount<=17) {
-                const button = document.querySelector('button[onclick="handleChoice(false)"]');
-                const maxX = window.innerWidth - button.offsetWidth;
-                const maxY = window.innerHeight - button.offsetHeight;
-                
-                button.style.position = 'fixed';
-                button.style.left = Math.random() * maxX + 'px';
-                button.style.top = Math.random() * maxY + 'px';
-            } else {
-                if (noChoiceCount > 18){
-                    Swal.fire({
-                    title: 'Dù sao...😔',
-                    text: 'Tớ vẫn luôn quý mến cậu, chúc cậu Giáng Sinh ấm áp!',
-                    imageUrl: 'https://media.giphy.com/media/3o6wrebnKWmvx4ZBio/giphy.gif?cid=790b7611lmvmie23mzojn90jsqg64fap28i5ulia7j92k6qg&ep=v1_gifs_search&rid=giphy.gif&ct=g',  // Đường dẫn đến ảnh động (GIF)
+        }
+
+        function openGift() {
+            const button = document.getElementById('xac-nhan');
+            
+            // Kiểm tra nếu nút chưa được di chuyển, thực hiện di chuyển nó ra ngoài #finalGiftScreen_all
+            if (!button.dataset.moved) {
+                const container = document.body;  // Di chuyển ra ngoài phần tử cha
+                container.appendChild(button);  // Thêm nút vào body
+                button.dataset.moved = 'true';  // Đánh dấu là nút đã được di chuyển
+            }
+
+    if (x === 10) {
+        window.location.href = "gift-box.html";
+    } else {
+        updateMessage();
+        playSound('mp3/sound_cute_01.MP3');
+        const maxX = window.innerWidth - button.offsetWidth;
+        const maxY = window.innerHeight - button.offsetHeight;
+        
+        button.style.position = 'fixed';
+        button.style.left = Math.random() * maxX + 'px';
+        button.style.top = Math.random() * maxY + 'px';
+    }
+}
+
+        function moveBg(e) {
+            const rect = e.target.getBoundingClientRect();
+            e.target.style.setProperty('--x', (e.clientX - rect.x) / rect.width * 100);
+            e.target.style.setProperty('--y', (e.clientY - rect.y) / rect.height * 100);
+        }
+        document.querySelector("button").addEventListener('pointermove', moveBg);
+    </script>
+
+<script>
+    // Phát nhạc nền khi tải trang
+    window.onload = function() {
+        const music = document.getElementById('background-music');
+        music.volume = 0.2; // Điều chỉnh âm lượng
+        music.play();
+    }
+
+    // Tắt/Mở nhạc nền
+function toggleMusic() {
+        const music = document.getElementById('background-music');
+        if(music.paused){
+            const inputOptions = musicTracks.reduce((options, track) => {
+                options[track.src] = track.name;
+                return options;
+            }, {});
+
+            // Swal.fire({
+            //     title: 'Chọn bản nhạc nền',
+            //     input: 'select',
+            //     inputOptions: inputOptions,
+            //     inputPlaceholder: 'Hãy chọn bản nhạc cậu thích.',
+            //     showCancelButton: true,
+            //     confirmButtonText: 'Chọn',
+            //     cancelButtonText: 'Hủy'
+            // }).then((result) => {
+            //     if (result.isConfirmed) {
+            //         const selectedTrack = musicTracks.find(track => track.src === result.value);
+            //         if (selectedTrack) {
+            //             music.src = selectedTrack.src;
+            //             music.play();
+            //         }
+            //     } else {
+            //         music.play();
+            //     }
+            // });
+            music.play();
+        } else{
+            music.pause();
+        }
+    }
+
+    // Thêm nút tắt/mở nhạc
+    // const container = document.querySelector('.container');
+    // const musicButton = document.createElement('button');
+    // musicButton.innerText = '🎵';
+    // musicButton.style.position = 'absolute';
+    // musicButton.style.top = '10px';
+    // musicButton.style.right = '10px';
+    // musicButton.style.background = 'transparent';
+    // musicButton.style.border = 'none';
+    // musicButton.style.cursor = 'pointer';
+    // musicButton.style.fontSize = '1.5rem';
+    // musicButton.onclick = toggleMusic;
+    // container.appendChild(musicButton);
+</script>
+<script>
+    // Hiệu ứng rơi tuyết tương tác
+    function createSnowflake() {
+        const snowflake = document.createElement('div');
+        snowflake.classList.add('snowflake');
+        snowflake.innerHTML = '❄️';
+        snowflake.style.left = Math.random() * 100 + 'vw';
+        snowflake.style.animationDuration = 5 + Math.random() * 5 + 's';
+        snowflake.style.fontSize = 12 + Math.random() * 12 + 'px';
+        document.body.appendChild(snowflake);
+
+        setTimeout(() => {
+            snowflake.remove();
+        }, 10000);
+    }
+
+    setInterval(createSnowflake, 200);
+
+    // Hiệu ứng âm thanh khi tương tác
+    function playSound(soundUrl) {
+        const audio = new Audio(soundUrl);
+        audio.play();
+    }
+
+    // Thêm sự kiện cho các nút tương tác
+    document.querySelectorAll('.interactive-icons img').forEach(icon => {
+        icon.addEventListener('click', () => {
+            playSound('https://www.soundjay.com/buttons/sounds/button-3.mp3'); // Thay đổi URL âm thanh nếu cần
+        });
+    });
+    function sendLove() {
+        const love = document.createElement('div');
+        love.classList.add('love-icon');
+        love.innerHTML = '❤️';
+        love.style.left = Math.random() * 100 + 'vw';
+        love.style.top = Math.random() * 100 + 'vh';
+        document.body.appendChild(love);
+
+        setTimeout(() => {
+            love.remove();
+        }, 3000);
+    }
+
+    // Hiệu ứng khi gửi câu hỏi
+    function handleChoice(accepted) {
+        const buttons = document.querySelectorAll('.btn-love1');
+        buttons.forEach(button => {
+            button.style.transition = 'all 0.3s ease-in-out';
+            if (accepted) {
+                button.style.transform = 'scale(1.2)';
+                playSound('mp3/sound_cute_01.MP3');
+                Swal.fire({
+                    title: 'Tớ rất vui!',
+                    text: 'Cùng tớ tạo nên mùa Giáng Sinh tuyệt vời nhé!',
+                    imageUrl: 'https://media.giphy.com/media/UVk5yzljef0kGiayL1/giphy.gif',
                     imageWidth: 400,
                     imageHeight: 200,
-                    imageAlt: 'GIF image',  // Mô tả cho ảnh động
-                    confirmButtonColor: '#ff4b6e'
+                    imageAlt: 'GIF image',
+                    confirmButtonColor: '#ff4b6e',
+                    confirmButtonText: 'Đồng ý 2 tay lun nè'
+                }).then((result) => {
+                    document.getElementById('questionScreen').style.display = 'none';
+                    document.getElementById('finalGiftScreen_all').style.display = 'block'; 
+                    if (result.isConfirmed) {
+                        const textElement1 = document.querySelector('.typing-effect1');
+                        typeTextWithLineBreaks(textElement1); // Chạy hiệu ứng typing sau khi xuất hiện
+                    }
                 });
-            }
-            }
-        }
-    });
-}
-function openGift() {
-    if (x===10) {
-                window.location.href = "gift.html";
             } else {
-                const button = document.querySelector('button[onclick="openGift()"]');
-                const maxX = window.innerWidth - button.offsetWidth;
-                const maxY = window.innerHeight - button.offsetHeight;
-                
-                button.style.position = 'fixed';
-                button.style.left = Math.random() * maxX + 'px';
-                button.style.top = Math.random() * maxY + 'px';
+                button.style.transform = 'scale(0.8)';
+                playSound('https://www.soundjay.com/buttons/sounds/button-10.mp3');
+                noChoiceCount++;
+                if (noChoiceCount >=3 && noChoiceCount <=17) {
+                    const rejectButton = document.querySelector('button[onclick="handleChoice(false)"]');
+                    const maxX = window.innerWidth - rejectButton.offsetWidth;
+                    const maxY = window.innerHeight - rejectButton.offsetHeight;
+                    
+                    rejectButton.style.position = 'fixed';
+                    rejectButton.style.left = Math.random() * maxX + 'px';
+                    rejectButton.style.top = Math.random() * maxY + 'px';
+                    sendLove(); // Gửi tình cảm
+                } else {
+                    if (noChoiceCount > 18){
+                        Swal.fire({
+                            title: 'Dù sao...😔',
+                            text: 'Tớ vẫn luôn quý mến cậu, chúc cậu Giáng Sinh ấm áp!',
+                            imageUrl: 'https://media.giphy.com/media/3o6wrebnKWmvx4ZBio/giphy.gif',  // Đường dẫn đến ảnh động (GIF)
+                            imageWidth: 400,
+                            imageHeight: 200,
+                            imageAlt: 'GIF image',  // Mô tả cho ảnh động
+                            confirmButtonColor: '#ff4b6e'
+                        });
+                    }
+                }
             }
-}
-function moveBg(e) {
-    const rect = e.target.getBoundingClientRect();
-    e.target.style.setProperty('--x', (e.clientX - rect.x) / rect.width * 100);
-    e.target.style.setProperty('--y', (e.clientY - rect.y) / rect.height * 100);
-}
-document.querySelector("button").addEventListener('pointermove', moveBg);
+        });
+    }
+</script>
 
-    </script>
+<script>
+    const musicTracks = [
+        { name: 'Piano Vui nhộn', src: 'mp3/cute_piano.mp3' },
+        { name: 'We wish you a merry christmas', src: 'mp3/piano_00.MP3' },
+        { name: 'Last Christmas', src: 'mp3/piano_01.MP3' },
+        { name: 'Just the two of us piano', src: 'mp3/piano_02.MP3' },
+        { name: 'Winter Wonderland-Jingle bell rock', src: 'mp3/piano_03.MP3' },
+        { name: 'Christmas is coming', src: 'mp3/Christmas_is_coming.MP3' }
+        // Thêm các bản nhạc khác nếu cần
+    ];
+</script>
+<script>
+    // Hàm chọn nhạc yêu thích khi double click
+    function selectMusic() {
+        const music = document.getElementById('background-music');
+        const musicOptions = musicTracks.reduce((options, track) => {
+            options[track.src] = track.name;
+            return options;
+        }, {});
+
+        Swal.fire({
+            title: 'Chọn bản nhạc nền yêu thích 🎶',
+            input: 'select',
+            inputOptions: musicOptions,
+            inputPlaceholder: 'Hãy chọn bản nhạc cậu thích.',
+            showCancelButton: true,
+            confirmButtonText: 'Chọn',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const selectedTrack = musicTracks.find(track => track.src === result.value);
+                if (selectedTrack) {
+                    music.src = selectedTrack.src;
+                    music.play();
+                }
+            }
+        });
+    }
+    // Hàm để xử lý double tap trên thiết bị di động
+    function addDoubleTapListener(element, callback) {
+        let lastTap = 0;
+        element.addEventListener('touchend', function(event) {
+            const currentTime = new Date().getTime();
+            const tapLength = currentTime - lastTap;
+            if (tapLength < 300 && tapLength > 0) {
+                callback();
+                event.preventDefault();
+            }
+            lastTap = currentTime;
+        });
+    }
+    // Thêm listener cho nút nhạc để xử lý double tap trên mobile
+    const musicButton = document.querySelector('.music-button');
+    addDoubleTapListener(musicButton, selectMusic);
+    // Cập nhật sự kiện cho nút nhạc đã thêm tooltip
+    document.querySelector('.music-button').addEventListener('dblclick', selectMusic);
+</script>
 </body>
 </html>

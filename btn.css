@@ -8,7 +8,7 @@ Simon Goellner
     inherits: true;
 }
 
-.dark button {
+.btn-love {
     --a: 0%;
     --hue: 170deg;
     --x: 50;
@@ -26,19 +26,21 @@ Simon Goellner
     transition: 
         --a .5s ease-in-out, 
         scale var(--spring-duration) var(--spring-easing);
-    scale: 0.92;
+    scale: 0.8;
     isolation: isolate;
     border: none; /* Xóa viền của button */
-    &:hover {
-        --a: 100%;
-        transition-duration: .5s, 1s;
-        box-shadow: none;
-        opacity: 1;
-        scale: 1;
-    }
+    cursor: pointer; /* Thêm con trỏ */
 }
 
-button:before {
+.btn-love:hover {
+    --a: 100%;
+    transition-duration: .5s, 1s;
+    box-shadow: none;
+    opacity: 1;
+    scale: 1;
+}
+
+.btn-love:before {
     content: "";
     position: absolute;
     inset: 0em;

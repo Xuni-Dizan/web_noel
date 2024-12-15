@@ -1,205 +1,211 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Christmas Gift Box</title>
+    <title>Hộp Quà Giáng Sinh 3D</title>
     <style>
-        /* Basic body styling and centering */
+        /* Styling cơ bản cho body và căn giữa nội dung */
         body {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f5f5f5;
-            perspective: 1500px; /* Increased perspective for a more dramatic 3D effect */
+            background: radial-gradient(circle at top, #1e3c72, #2a5298, #1e3c72);
+            perspective: 1500px;
             overflow: hidden;
             position: relative;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* Overlay for dimming the background */
+        /* Overlay để làm mờ nền */
         .overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7); /* Darken the screen */
+            background-color: rgba(0, 0, 0, 0.5);
             z-index: 10;
             opacity: 1;
             transition: opacity 1s ease-out;
         }
 
-        /* Main gift box container */
+        /* Container chính của hộp quà */
         .gift-box {
             position: relative;
-            width: 150px;
-            height: 150px;
+            width: 220px;
+            height: 220px;
             transform-style: preserve-3d;
             transform: rotateX(-25deg) rotateY(25deg);
-            transition: transform 1s ease, transform 0.8s ease-out; /* Smooth zoom-in effect */
+            transition: transform 1s ease, transform 0.8s ease-out;
             cursor: pointer;
-            z-index: 20; /* Ensure it's on top of the overlay */
+            z-index: 20;
         }
 
-        /* Common face styling for the sides */
+        /* Styling cho từng mặt của hộp quà */
         .gift-box .face {
             position: absolute;
-            width: 150px;
-            height: 150px;
-            background-color: #e63946;
-            border: 2px solid #e63946;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 220px;
+            height: 220px;
+            background-color: #ff6f61;
+            border: 3px solid #d84315;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
             transition: all 0.3s ease;
         }
 
-        /* Positioning the individual faces */
         .gift-box .face.front {
-            transform: rotateY(0deg) translateZ(75px);
+            transform: rotateY(0deg) translateZ(110px);
+            background: linear-gradient(145deg, #ff6f61, #d84315);
         }
 
         .gift-box .face.back {
-            transform: rotateY(180deg) translateZ(75px);
+            transform: rotateY(180deg) translateZ(110px);
+            background: linear-gradient(145deg, #ff6f61, #d84315);
         }
 
         .gift-box .face.right {
-            transform: rotateY(90deg) translateZ(75px);
+            transform: rotateY(90deg) translateZ(110px);
+            background: linear-gradient(145deg, #ffab91, #d84315);
         }
 
         .gift-box .face.left {
-            transform: rotateY(-90deg) translateZ(75px);
+            transform: rotateY(-90deg) translateZ(110px);
+            background: linear-gradient(145deg, #ffab91, #d84315);
         }
 
         .gift-box .face.top {
-            transform: rotateX(90deg) translateZ(75px);
-            background-color: #f1c40f;
+            transform: rotateX(90deg) translateZ(110px);
+            background: linear-gradient(145deg, #f57c00, #fb8c00);
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* More shadow for depth */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
         }
 
-        /* Enhanced lid design with subtle shading, texture, and border */
+        /* Thiết kế nắp hộp với hoa văn sinh nhật */
         .gift-box .face.top .decorative-lid {
             position: relative;
-            width: 130px;
-            height: 130px;
-            background-color: #e63946;
-            border-radius: 15px;
-            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.1); /* Inner shadow for depth */
-            background: linear-gradient(145deg, #f1c40f, #f39c12); /* Gradient for a more dynamic lid */
-            transition: transform 0.5s ease-out;
+            width: 180px;
+            height: 180px;
+            background-color: #ff9800;
+            border-radius: 25px;
+            box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.2);
+            background: radial-gradient(circle at top left, #ff9800, #fb8c00);
+            transition: transform 0.6s ease-out;
         }
 
-        /* Striped effect for the lid, giving it a more textured feel */
+        /* Hoạ tiết hoa văn cho nắp hộp */
         .gift-box .face.top .decorative-lid:before {
             content: '';
             position: absolute;
-            width: 110px;
-            height: 110px;
-            top: 10px;
-            left: 10px;
-            background: repeating-linear-gradient(
-                45deg,
-                #f1c40f,
-                #f1c40f 10px,
-                transparent 10px,
-                transparent 20px
-            );
-            border-radius: 10px;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); /* Inner glow for texture */
+            width: 140px;
+            height: 140px;
+            top: 20px;
+            left: 20px;
+            background: url('patterns/cute-pattern.png') no-repeat center center;
+            background-size: cover;
+            border-radius: 20px;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
         }
 
-        /* Adding the lid border with a gradient for more depth */
+        /* Viền nắp hộp với gradient */
         .gift-box .face.top .lid-border {
             position: absolute;
-            top: -10px;
-            left: -10px;
-            width: 150px;
-            height: 150px;
-            background: linear-gradient(to bottom, #f1c40f, #e63946);
-            border-radius: 20px;
+            top: -20px;
+            left: -20px;
+            width: 260px;
+            height: 260px;
+            background: linear-gradient(to bottom right, #ff9800, #fb8c00);
+            border-radius: 30px;
             z-index: -1;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Stronger shadow for extra depth */
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
         }
 
-        /* Bottom face */
+        /* Mặt dưới của hộp quà */
         .gift-box .face.bottom {
-            transform: rotateX(-90deg) translateZ(75px);
+            transform: rotateX(-90deg) translateZ(110px);
+            background: linear-gradient(145deg, #ff6f61, #d84315);
+            border-radius: 10px;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);
         }
 
-        /* Ribbons styling with more 3D effects */
+        /* Styling cho ruy băng với hiệu ứng 3D */
         .ribbon {
             position: absolute;
-            width: 20px;
-            height: 150px;
-            background-color: #f1c40f;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 30px;
+            height: 220px;
+            background-color: #ffd54f;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
             z-index: 1;
+            border-radius: 15px;
         }
 
         .ribbon.vertical {
-            transform: rotateY(90deg) translateZ(75px);
+            transform: rotateY(90deg) translateZ(110px);
         }
 
         .ribbon.horizontal {
-            transform: rotateX(90deg) translateZ(75px);
+            transform: rotateX(90deg) translateZ(110px);
         }
 
-        /* Ribbon bow with 3D effects and subtle animation */
+        /* Nút gối băng với hiệu ứng 3D và hoạt hình nhẹ */
         .ribbon-bow {
             position: absolute;
-            top: -30px;
+            top: -50px;
             left: 50%;
             transform: translateX(-50%) rotateX(-25deg);
-            width: 60px;
-            height: 60px;
-            background-color: #f1c40f;
+            width: 90px;
+            height: 90px;
+            background-color: #ffd54f;
             border-radius: 50%;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            animation: bowAnimate 1s ease-in-out infinite alternate;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            animation: bowAnimate 1.8s ease-in-out infinite alternate;
         }
 
         .ribbon-bow:before, .ribbon-bow:after {
             content: '';
             position: absolute;
-            width: 60px;
-            height: 60px;
-            background-color: #f1c40f;
+            width: 90px;
+            height: 90px;
+            background-color: #ffd54f;
             border-radius: 50%;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
         }
 
         .ribbon-bow:before {
-            transform: rotate(45deg);
+            transform: rotate(60deg);
         }
 
         .ribbon-bow:after {
-            transform: rotate(-45deg);
+            transform: rotate(-60deg);
         }
 
-        /* Animation for bow effect */
+        /* Hoạt hình cho gối băng */
         @keyframes bowAnimate {
             0% {
                 transform: translateX(-50%) rotateX(-25deg) scale(1);
             }
             100% {
-                transform: translateX(-50%) rotateX(-25deg) scale(1.1);
+                transform: translateX(-50%) rotateX(-25deg) scale(1.3);
             }
         }
 
-        /* Smooth hover effect for the 3D box */
+        /* Hiệu ứng khi hover vào hộp quà */
         .gift-box:hover {
-            transform: rotateX(0deg) rotateY(45deg);
+            transform: rotateX(0deg) rotateY(30deg) scale(1.3);
         }
 
-        /* Lid Opening on hover */
+        /* Mở nắp hộp khi hover */
         .gift-box:hover .decorative-lid {
-            transform: translateY(-15px) rotateX(-15deg);
+            transform: translateY(-25px) rotateX(-25deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
         }
 
-        /* Rotation explosion animation */
+        /* Hoạt hình nổ và quay nhanh */
         @keyframes explode {
             0% {
                 transform: rotateX(0deg) rotateY(0deg);
@@ -216,10 +222,323 @@
                 transform: rotateX(720deg) rotateY(720deg);
             }
         }
+
+        /* Thêm các biểu tượng trang trí Giáng Sinh */
+        .snowflakes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 15;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.9;
+            animation: fall 6s linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Đặt các snowflakes ngẫu nhiên */
+        .snowflake:nth-child(1) { left: 5%; animation-delay: 0s; }
+        .snowflake:nth-child(2) { left: 15%; animation-delay: 1s; }
+        .snowflake:nth-child(3) { left: 25%; animation-delay: 2s; }
+        .snowflake:nth-child(4) { left: 35%; animation-delay: 3s; }
+        .snowflake:nth-child(5) { left: 45%; animation-delay: 4s; }
+        .snowflake:nth-child(6) { left: 55%; animation-delay: 0.5s; }
+        .snowflake:nth-child(7) { left: 65%; animation-delay: 1.5s; }
+        .snowflake:nth-child(8) { left: 75%; animation-delay: 2.5s; }
+        .snowflake:nth-child(9) { left: 85%; animation-delay: 3.5s; }
+
+        /* Thêm đèn nhấp nháy */
+        .lights {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 250px;
+            height: 250px;
+            transform: translate(-50%, -50%);
+            z-index: 25;
+        }
+
+        .light {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: rgba(255, 215, 0, 0.8);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+            animation: blink 2s infinite alternate;
+        }
+
+        .light:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
+        .light:nth-child(2) { top: 30%; left: 70%; animation-delay: 0.5s; }
+        .light:nth-child(3) { top: 60%; left: 40%; animation-delay: 1s; }
+        .light:nth-child(4) { top: 80%; left: 80%; animation-delay: 1.5s; }
+        .light:nth-child(5) { top: 50%; left: 10%; animation-delay: 2s; }
+
+        @keyframes blink {
+            from { opacity: 0.3; }
+            to { opacity: 1; }
+        }
+
+        /* Thêm decor 3D cho hộp quà */
+        .decor {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+            opacity: 0.8;
+            animation: float 5s infinite ease-in-out;
+        }
+
+        .decor:nth-child(1) { top: 20%; left: 25%; transform: rotate(45deg); }
+        .decor:nth-child(2) { top: 40%; left: 70%; transform: rotate(-30deg); }
+        .decor:nth-child(3) { top: 70%; left: 50%; transform: rotate(60deg); }
+        .decor:nth-child(4) { top: 60%; left: 15%; transform: rotate(-45deg); }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(360deg); }
+        }
+
+        /* Thêm Decor Mới: Quả Cầu Giáng Sinh và Ngôi Sao */
+        .christmas-decor {
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 30px;
+            height: 30px;
+            background-color: red;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+            animation: spin 4s linear infinite;
+        }
+
+        .christmas-decor.star {
+            top: 5%;
+            left: 90%;
+            background: gold;
+            clip-path: polygon(
+                50% 0%,
+                61% 35%,
+                98% 35%,
+                68% 57%,
+                79% 91%,
+                50% 70%,
+                21% 91%,
+                32% 57%,
+                2% 35%,
+                39% 35%
+            );
+            width: 40px;
+            height: 40px;
+        }
+
+        .christmas-decor.ball {
+            background: radial-gradient(circle at 30% 30%, #ff0000, #800000);
+        }
+
+        .christmas-decor:nth-child(5) {
+            top: 15%;
+            left: 60%;
+            animation-delay: 1s;
+        }
+
+        .christmas-decor:nth-child(6) {
+            top: 75%;
+            left: 20%;
+            animation-delay: 2s;
+        }
+
+        .christmas-decor:nth-child(7) {
+            top: 50%;
+            left: 80%;
+            animation-delay: 0.5s;
+        }
+
+        .christmas-decor:nth-child(8) {
+            top: 25%;
+            left: 40%;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Thêm ánh sáng màu sắc */
+        .color-lights {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 30;
+        }
+
+        .color-light {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 0, 0, 0.1);
+            mix-blend-mode: screen;
+            animation: colorChange 10s infinite;
+        }
+
+        @keyframes colorChange {
+            0% { background: rgba(255, 0, 0, 0.1); }
+            25% { background: rgba(0, 255, 0, 0.1); }
+            50% { background: rgba(0, 0, 255, 0.1); }
+            75% { background: rgba(255, 255, 0, 0.1); }
+            100% { background: rgba(255, 0, 0, 0.1); }
+        }
+
+        /* Thêm các style cho hiệu ứng chuyển cảnh */
+        .transition-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0);
+            z-index: 1000;
+            pointer-events: none;
+            transition: background-color 1s ease;
+        }
+
+        .transition-overlay.active {
+            background-color: rgba(255, 255, 255, 1);
+        }
+
+        /* Hiệu ứng mờ và phóng to khi chuyển cảnh */
+        .fade-out {
+            animation: fadeOut 1s forwards;
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: scale(1.2);
+            }
+        }
+
+        /* Thêm container cho snowflakes khi hộp nổ */
+        .explosion-snowflakes {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 35;
+        }
+
+        .explosion-snowflake {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            opacity: 1;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+            animation: explodeFall 3s forwards, sparkle 1.5s infinite;
+        }
+
+        @keyframes explodeFall {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+            }
+        }
+
+        /* Hiệu ứng làm trắng màn hình khi nổ */
+        .white-flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 45;
+            animation: flash 0.5s forwards;
+            display: none;
+        }
+
+        @keyframes flash {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="overlay" id="overlay"></div> <!-- Overlay for background dimming -->
+    <div class="overlay" id="overlay"></div> <!-- Overlay để làm mờ nền -->
+    <div class="transition-overlay" id="transition-overlay"></div> <!-- Overlay cho hiệu ứng chuyển cảnh -->
+
+    <div class="snowflakes">
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="decor"></div>
+        <div class="decor"></div>
+        <div class="decor"></div>
+        <div class="decor"></div>
+        <!-- Thêm Decor Mới -->
+        <div class="christmas-decor ball"></div>
+        <div class="christmas-decor star"></div>
+        <div class="christmas-decor ball"></div>
+        <div class="christmas-decor star"></div>
+    </div>
 
     <div class="gift-box" id="gift-box">
         <div class="face front"></div>
@@ -229,6 +548,13 @@
         <div class="face top">
             <div class="decorative-lid"></div>
             <div class="lid-border"></div>
+            <div class="lights">
+                <div class="light"></div>
+                <div class="light"></div>
+                <div class="light"></div>
+                <div class="light"></div>
+                <div class="light"></div>
+            </div>
         </div>
         <div class="face bottom"></div>
 
@@ -238,31 +564,78 @@
         <div class="ribbon-bow"></div>
     </div>
 
+    <!-- Thêm container cho snowflakes khi hộp nổ -->
+    <div class="explosion-snowflakes" id="explosion-snowflakes"></div>
+
+    <!-- Thêm ánh sáng màu sắc -->
+    <div class="color-lights">
+        <div class="color-light"></div>
+    </div>
+
+    <!-- Thêm hiệu ứng làm trắng màn hình -->
+    <div class="white-flash" id="white-flash"></div>
+
     <script>
-        // Automatically zoom and highlight the box on page load
+        // Tự động zoom và làm nổi bật hộp quà khi tải trang
         window.onload = function() {
             const giftBox = document.getElementById("gift-box");
             const overlay = document.getElementById("overlay");
+            const transitionOverlay = document.getElementById("transition-overlay");
+            const explosionContainer = document.getElementById("explosion-snowflakes");
+            const whiteFlash = document.getElementById("white-flash");
 
-            // Start by zooming in the gift box and dimming the background
+            // Bắt đầu bằng cách zoom vào hộp quà và làm mờ nền
             setTimeout(function() {
-                giftBox.style.transform = "scale(1.5) rotateX(-25deg) rotateY(25deg)";
-                overlay.style.opacity = "0"; // Fade out the overlay
-            }, 500); // Wait a little before starting the zoom-in effect
+                giftBox.style.transform = "scale(1.4) rotateX(-25deg) rotateY(25deg)";
+                overlay.style.opacity = "0"; // Làm mờ overlay
+            }, 2000); // Chờ một chút trước khi bắt đầu hiệu ứng zoom-in
 
-            // Add click event to the gift box for interaction
+            // Thêm sự kiện click cho hộp quà để tương tác
             giftBox.addEventListener("click", function() {
                 const box = document.querySelector(".gift-box");
                 
-                // Add rotation animation with increasing speed
+                // Thêm hoạt hình quay với tốc độ tăng dần
                 box.style.transition = 'transform 0.2s ease-out';
                 box.style.animation = 'rotateSpeedUp 2s forwards, explode 1s 2s forwards';
 
-                // After animation ends, redirect to another page
+                // Kích hoạt overlay chuyển cảnh
+                transitionOverlay.classList.add('active');
+                transitionOverlay.classList.add('fade-out');
+
+                // Kích hoạt hiệu ứng làm trắng màn hình
+                whiteFlash.style.display = 'block';
+                whiteFlash.classList.add('active');
+
+                // Tạo hiệu ứng nổ thành tuyết và pháo hoa
                 setTimeout(function() {
-                    window.location.href = "gift.html"; // Change this to your desired .html page
-                },2500); // Delay to allow explosion to complete before redirection
+                    createExplosionSnowflakes();
+                }, 2500); // Delay để đồng bộ với hoạt hình nổ
+
+                // Sau khi hoạt hình kết thúc, chuyển hướng đến trang khác
+                setTimeout(function() {
+                    window.location.href = "gift.html"; // Thay đổi thành trang .html mong muốn
+                }, 3000); // Delay để cho phép hiệu ứng tuyết hoàn thành trước khi chuyển hướng
             });
+
+            // Hàm tạo snowflakes khi hộp nổ
+            function createExplosionSnowflakes() {
+                const snowflakeCount = 1000; // Tăng số lượng tuyết nổ
+                for (let i = 0; i < snowflakeCount; i++) {
+                    const snowflake = document.createElement('div');
+                    snowflake.classList.add('explosion-snowflake');
+                    // Tạo các biến CSS cho chuyển động ngẫu nhiên
+                    snowflake.style.setProperty('--tx', `${Math.random() * 800 - 400}px`);
+                    snowflake.style.setProperty('--ty', `${Math.random() * 800 - 400}px`);
+                    snowflake.style.left = '0';
+                    snowflake.style.top = '0';
+                    explosionContainer.appendChild(snowflake);
+
+                    // Xóa snowflake sau khi hoạt hình kết thúc
+                    snowflake.addEventListener('animationend', () => {
+                        snowflake.remove();
+                    });
+                }
+            }
         };
     </script>
 </body>

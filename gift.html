@@ -1,26 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>3D Christmas Tree</title>
+  <title>Cây Thông Noel 3D Đẹp Mắt</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <link rel="stylesheet" href="button.css">
   <style>
-    body {
-      background-color: #f8f9fa;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+    * {
       margin: 0;
-      perspective: 1000px;
-      background: linear-gradient(to bottom, #00111a, #004466);
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
       overflow: hidden;
     }
+    body {
+      background-color: transparent;
+      overflow: hidden;
+      position: relative;
+      perspective: 1000px;
+      background: linear-gradient(to bottom, #00111a, #004466);
+    }
     canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       display: block;
+      z-index: -1;
     }
     .title {
       position: absolute;
@@ -31,96 +45,268 @@
       font-size: 2rem;
       font-family: 'Arial', sans-serif;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+      z-index: 10;
     }
     h2{
         font-family: 'Arial', sans-serif;
         font-size: 24px;
-    color: #FF66B2;
-    font-weight: bold;
-    white-space: nowrap;
-    /* animation: typing 3s steps(30) 1s 1 normal both; */
-    text-shadow: 0px 0px 20px rgba(255, 102, 178, 0.8), 0px 0px 30px rgba(255, 102, 178, 0.5);
-    overflow: hidden;
-    border-right: .15em solid #ff4b6e;
-    margin: 0 auto;
-    letter-spacing: .15em;
-    animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        color: #FF66B2;
+        font-weight: bold;
+        white-space: nowrap;
+        text-shadow: 0px 0px 20px rgba(255, 102, 178, 0.8), 0px 0px 30px rgba(255, 102, 178, 0.5);
+        overflow: hidden;
+        border-right: .15em solid #ff4b6e;
+        margin: 0 auto;
+        letter-spacing: .15em;
+        animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
     }
     @keyframes typing {
-    from {
-        width: 0;
+      from {
+          width: 0;
+      }
+      to {
+          width: 100%;
+      }
     }
-    to {
-        width: 100%;
+    @keyframes blink-caret {
+      from, to {
+          border-color: transparent;
+      }
+      50% {
+          border-color: #ff4b6e;
+      }
     }
-}
-/* Container for Santa */
-.santa-claus {
-  position: absolute;
-  top: 40%;
-  left: 80%;
-  transform: translateX(-50%);
-  z-index: 10000;
-  width: 250px;
-  height: 250px;
-  animation: santaAnimation 12s infinite ease-in-out, santaHoverEffect 1s infinite ease-in-out;
-  transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out, box-shadow 0.3s ease-in-out, transform 0.5s ease-in-out;
-  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.4); /* soft shadow for depth */
-  filter: brightness(1.2); /* bright effect */
-  border-radius: 50%;
-}
-.raindeer{
-  position: absolute;
-  top: 30%;
-  left: 30%;
-  transform: translateX(-50%);
-  z-index: 10000;
-  width: 250px;
-  height: 250px;
-  background: transparent !important;
-}
-/* Floating and smooth movement */
-@keyframes santaAnimation {
-  0% {
-    transform: translateX(-50%) translateY(0) rotate(0deg);
-  }
-  25% {
-    transform: translateX(-40%) translateY(-10px) rotate(5deg);
-  }
-  50% {
-    transform: translateX(-30%) translateY(5px) rotate(-5deg);
-  }
-  75% {
-    transform: translateX(-40%) translateY(-10px) rotate(3deg);
-  }
-  100% {
-    transform: translateX(-50%) translateY(0) rotate(0deg);
-  }
-}
+    /* Container cho Ông già Noel */
+    .santa-container{
+      position: absolute;
+      display: flex;
+      top: 60%;
+      left: 60%;
+      width: 20%;
+      height: 20%;
+      z-index: 1000;
+    }
+    .santa-claus {
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10000;
+      width: 250px;
+      height: 250px;
+      animation: santaAnimation 12s infinite ease-in-out, santaHoverEffect 1s infinite ease-in-out;
+      transition: transform 0.2s ease-in-out, filter 0.2s ease-in-out, box-shadow 0.3s ease-in-out, transform 0.5s ease-in-out;
+      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.4);
+      filter: brightness(1.2);
+      border-radius: 50%;
+    }
+    .raindeer{
+      position: absolute;
+      top: 30%;
+      left: 30%;
+      transform: translateX(-50%);
+      z-index: 10000;
+      width: 250px;
+      height: 250px;
+      background: transparent !important;
+    }
+    /* Hiệu ứng nổi và di chuyển mượt mà */
+    @keyframes santaAnimation {
+      0% {
+        transform: translateX(-50%) translateY(0) rotate(0deg);
+      }
+      25% {
+        transform: translateX(-40%) translateY(-10px) rotate(5deg);
+      }
+      50% {
+        transform: translateX(-30%) translateY(5px) rotate(-5deg);
+      }
+      75% {
+        transform: translateX(-40%) translateY(-10px) rotate(3deg);
+      }
+      100% {
+        transform: translateX(-50%) translateY(0) rotate(0deg);
+      }
+    }
+    
+    /* Hiệu ứng hover tăng kích thước và bóng sáng */
+    .santa-claus:hover {
+      transform: scale(1.1) translateX(-50%) translateY(-10px) rotate(5deg);
+      box-shadow: 0 15px 50px rgba(255, 255, 255, 0.6);
+    }
+    
+    /* Hiệu ứng lấp lánh */
+    @keyframes sparkle {
+      0% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.3); }
+      50% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 25px rgba(255, 255, 255, 0.5), 0 0 35px rgba(255, 255, 255, 0.4); }
+      100% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.3); }
+    }
+    
+    .santa-claus {
+      animation: santaAnimation 12s infinite ease-in-out, sparkle 1.5s infinite ease-in-out;
+    }
+    
+    /* Style cho hiệu ứng chuyển cảnh */
+    .transition-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 1);
+      z-index: 1000;
+      pointer-events: none;
+      animation: fadeIn 1s forwards;
+    }
+    
+    @keyframes fadeIn {
+      from {
+          background-color: rgba(255, 255, 255, 1);
+      }
+      to {
+          background-color: rgba(255, 255, 255, 0);
+      }
+    }
+    
+    /* Style cho nút */
+    .button {
+      position: fixed;
+      left: 50px;
+      bottom: 50px;
+      z-index: 999999;
+      /* Thêm các style khác nếu cần */
+    }
 
-/* Hover effect for more interactivity */
-.santa-claus:hover {
-  transform: scale(1.1) translateX(-50%) translateY(-10px) rotate(5deg);
-  box-shadow: 0 15px 50px rgba(255, 255, 255, 0.6); /* glowing effect */
-}
+    /* Thêm ánh sáng lung linh cho cây thông */
+    .tree-light {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+    }
 
-/* Sparkle effect */
-@keyframes sparkle {
-  0% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.3); }
-  50% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 25px rgba(255, 255, 255, 0.5), 0 0 35px rgba(255, 255, 255, 0.4); }
-  100% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.3); }
-}
+    /* Thêm hiệu ứng twinkle */
+    .twinkle {
+      animation: twinkle 2s infinite;
+    }
 
-.santa-claus {
-  animation: santaAnimation 12s infinite ease-in-out, sparkle 1.5s infinite ease-in-out;
-}
+    @keyframes twinkle {
+      0%, 100% {
+        opacity: 0.8;
+      }
+      50% {
+        opacity: 0.2;
+      }
+    }
 
+    /* Style cho phần tương tác với Santa */
+    .speech-bubble {
+      position: absolute;
+      bottom: 90%; /* Vị trí phía trên Santa */
+      left: 50%;
+      transform: translateX(-50%) translateY(-10px);
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 20px;
+      padding: 10px 20px;
+      /* max-width: 200px; */
+      flex-wrap: wrap;
+      word-break: break-all;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      z-index: 10001;
+      /* Phong cách giáng sinh cute */
+      background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+      color: #333;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      position: absolute;
+    }
+    .interaction-buttons{
+      position: absolute;
+      top: 70%; /* Điều chỉnh vị trí dưới Santa */
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10001;
+      display: none;
+    }
+
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 10px;
+      border-style: solid;
+      border-color: rgba(255, 255, 255, 0.8) transparent transparent transparent;
+      /* Phong cách giáng sinh */
+      border-color: #fad0c4 transparent transparent transparent;
+    }
+
+    .santa-message {
+      display: block;
+    }
+
+    .interaction-buttons button {
+      margin: 0 10px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      cursor: pointer;
+      border: none;
+      border-radius: 10px;
+      background-color: #ff4b6e;
+      color: white;
+      transition: background-color 0.3s;
+    }
+
+    .interaction-buttons button:hover {
+      background-color: #ff1f54;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .speech-bubble .santa-message h2{
+        font-size: 14px !important;
+      }
+      .speech-bubble{
+        left: 10%;
+      }
+
+      .interaction-buttons {
+        margin-right: 10px;
+        font-size: 14px;
+        justify-content: space-between;
+        left: 35%;
+      }
+    }
+    @media (max-width: 480px) {
+      .button{
+        margin-left: -50px;
+        top: 90%;
+      }
+    }
   </style>
 </head>
 <body>
+  <div class="transition-overlay"></div> <!-- Overlay cho hiệu ứng chuyển cảnh -->
   <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
-<dotlottie-player class="santa-claus" src="https://lottie.host/c8162681-482a-4917-a304-cf8926e30b7f/Iw0lAp8Tan.lottie" background="transparent" speed="1" style="width: 200px; height: 200px;z-index: 999999;" loop autoplay></dotlottie-player>  
+  
+  <div class="santa-container" style="position: relative; display: inline-block;">
+    <dotlottie-player class="santa-claus" src="https://lottie.host/c8162681-482a-4917-a304-cf8926e30b7f/Iw0lAp8Tan.lottie" background="transparent" speed="1" style="width: 200px; height: 200px; z-index: 999999;" loop autoplay></dotlottie-player>  
+    <div class="speech-bubble" id="speechBubble">
+      <div class="santa-message" id="santaMessage"><h2></h2></div>
+    </div>
+  </div>
+
   <div class="title"><h2>Tặng cậu nè</h2></div>
+  
+  <div class="interaction-buttons" id="interactionButtons">
+    <button class="btn btn-primary" id="option1"></button>
+    <button class="btn btn-secondary" id="option2"></button>
+  </div>
+  
   <button class="button" style="z-index: 999999999999;">
     <div class="bg"></div>
     <svg
@@ -131,6 +317,7 @@
       width="342"
       class="splash"
     >
+      <!-- Các đường nét của nút -->
       <path
         stroke-linecap="round"
         stroke-width="3"
@@ -229,11 +416,11 @@
           <span data-label="!" style="--i: 9">!</span>
         </span>
   
-        <div class="icon" >
+        <div class="icon">
           <div></div>
         </div>
   
-        <span class="char state-2" >
+        <span class="char state-2">
           <span data-label="X" style="--i: 1">X</span>
           <span data-label="i" style="--i: 2">i</span>
           <span data-label="n" style="--i: 3">n</span>
@@ -245,62 +432,228 @@
       </div>
     </div>
   </button>
+  
   <script>
     // Lấy đối tượng button
-const button = document.querySelector('.button');
-
-// Hàm cập nhật vị trí của button
-function updateButtonPosition() {
-// Lấy chiều rộng và chiều cao của cửa sổ trình duyệt
-const screenWidth = window.innerWidth;
-const screenHeight = window.innerHeight;
-
-// Đặt vị trí button ở góc dưới bên trái
-button.style.position = 'fixed';  // Đảm bảo button luôn cố định
-button.style.left = '50px';  // Cách trái 20px
-button.style.bottom = '50px';  // Cách đáy 20px
-button.style.zIndex = '999999';  // Đảm bảo button luôn ở trên các phần tử khác
-}
-
-// Gọi hàm ngay khi tải trang
-updateButtonPosition();
-
-// Cập nhật vị trí khi cửa sổ thay đổi kích thước
-window.addEventListener('resize', updateButtonPosition);
-
+    const button = document.querySelector('.button');
+    
+    // Hàm cập nhật vị trí của button
+    function updateButtonPosition() {
+      // Đặt vị trí button ở góc dưới bên trái
+      button.style.left = '50px';  // Cách trái 50px
+      button.style.bottom = '50px';  // Cách đáy 50px
+      button.style.zIndex = '999999';  // Đảm bảo button luôn ở trên các phần tử khác
+    }
+    
+    // Gọi hàm ngay khi tải trang
+    updateButtonPosition();
+    
+    // Cập nhật vị trí khi cửa sổ thay đổi kích thước
+    window.addEventListener('resize', updateButtonPosition);
+    
     let click = 0;
     function handleChoice() {
-        click++;
-        console.log(click);
-        if (click >= 2) {          
+      click++;
+      console.log(click);
+      if (click >= 2) {          
         window.location.href = "gift2.html";
         click = 0;
-        }
+      }
     }
+
+    // Thêm hiệu ứng twinkle cho đèn cây
+    function addTwinkleEffect() {
+      scene.traverse((child) => {
+        if (child.isPointLight) {
+          child.userData.twinkle = true;
+        }
+      });
+    }
+
+    // Hàm tạo các ngôi sao nhỏ xung quanh cây thông
+    function createStarParticles() {
+      const starGeometry = new THREE.BufferGeometry();
+      const starCount = 100;
+      const positions = [];
+      const colors = [];
+
+      for (let i = 0; i < starCount; i++) {
+        const x = Math.random() * 50 - 25;
+        const y = Math.random() * 50 + 10;
+        const z = Math.random() * 50 - 25;
+        positions.push(x, y, z);
+        colors.push(1, 1, 1); // Màu trắng
+      }
+
+      starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+      starGeometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+      const starMaterial = new THREE.PointsMaterial({
+        size: 0.5,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.8,
+        blending: THREE.AdditiveBlending,
+      });
+
+      const stars = new THREE.Points(starGeometry, starMaterial);
+      scene.add(stars);
+    }
+
+    // Cải thiện hiệu ứng mưa tuyết bằng cách sử dụng Texture
+    const snowTexture = new THREE.TextureLoader().load('https://threejs.org/examples/textures/snowflake1.png');
+    const snowMaterialEnhanced = new THREE.PointsMaterial({
+      color: 0xFFFFFF,
+      size: 0.5,
+      map: snowTexture,
+      transparent: true,
+    });
+
+    const snowGeometryEnhanced = new THREE.BufferGeometry();
+    const snowCount = 2000;
+    const positionsEnhanced = [];
+
+    for (let i = 0; i < snowCount; i++) {
+      positionsEnhanced.push(
+        Math.random() * 50 - 25,
+        Math.random() * 50 + 25,
+        Math.random() * 50 - 25
+      );
+    }
+
+    snowGeometryEnhanced.setAttribute('position', new THREE.Float32BufferAttribute(positionsEnhanced, 3));
+    const snowEnhanced = new THREE.Points(snowGeometryEnhanced, snowMaterialEnhanced);
+    scene.add(snowEnhanced);
+
+    // Tạo nhạc nền
+    const audio = document.getElementById('background-music');
+    audio.volume = 0.5;
+
+    button.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    });
+
+    // Thêm ngôi sao lung linh
+    createStarParticles();
+
+    // Thêm hiệu ứng twinkle
+    addTwinkleEffect();
+
+    // Hàm animate
+    // Animation Loop với các cải tiến cho cây thông
+    function animate() {
+      requestAnimationFrame(animate);
+
+      // Cập nhật mưa tuyết
+      const positions = snow.geometry.attributes.position.array;
+      for (let i = 0; i < positions.length; i += 3) {
+        positions[i + 1] -= 0.1 + Math.random() * 0.05;
+        if (positions[i + 1] < -30) {
+          positions[i + 1] = Math.random() * 50 + 25;
+        }
+      }
+      snow.geometry.attributes.position.needsUpdate = true;
+
+      // Rotate tree và camera để có góc nhìn động
+      angle += 0.005;
+      camera.position.x = Math.cos(angle) * 30;
+      camera.position.z = Math.sin(angle) * 30;
+      camera.lookAt(new THREE.Vector3(0, 10, 0));
+
+      // Update star flicker
+      updateStarFlicker();
+
+      // Nhấp nháy đèn cây
+      scene.traverse((child) => {
+        if (child.isPointLight && child.userData.flickerSpeed) {
+          child.intensity = 1 + Math.sin(Date.now() * child.userData.flickerSpeed) * 0.5;
+        }
+        if (child.isMesh && child.geometry.type === "SphereGeometry" && child.material.emissiveIntensity !== undefined) {
+          child.material.emissiveIntensity = 0.8 + Math.sin(Date.now() * 0.005) * 0.2;
+        }
+        // Xoay nhẹ các quả bóng trang trí
+        if (child.isMesh && child.userData.rotationSpeed) {
+          child.rotation.y += child.userData.rotationSpeed;
+        }
+      });
+
+      // Render the scene
+      renderer.render(scene, camera);
+    }
+
+    animate();
+    createStarParticles();
+
+    // Resize handling
+    window.addEventListener('resize', () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+    });
+
+    // Kích hoạt bóng đổ
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+    tree.traverse(child => {
+      if (child instanceof THREE.Mesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+      }
+    });
+
+    // Thêm hoa tuyết xung quanh cây thông
+    function addSnowflakesToTree() {
+      const snowflakeGeometry = new THREE.SphereGeometry(0.05, 6, 6);
+      const snowflakeMaterial = new THREE.MeshBasicMaterial({ color: 0xFFFFFF, transparent: true, opacity: 0.7 });
+      for (let i = 0; i < 100; i++) {
+        const snowflake = new THREE.Mesh(snowflakeGeometry, snowflakeMaterial);
+        snowflake.position.set(
+          (Math.random() - 0.5) * 10,
+          Math.random() * 30,
+          (Math.random() - 0.5) * 10
+        );
+        scene.add(snowflake);
+      }
+    }
+
+    addSnowflakesToTree();
   </script>
+  
   <script>
     // Initialize Scene, Camera, and Renderer
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer();
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0x000000, 0); // Đặt nền trong suốt
     document.body.appendChild(renderer.domElement);
 
-    // Lighting Setup (Ambient, Point, and Spotlight)
+    // Đặt lại vị trí camera để phù hợp với khung nhìn toàn màn hình
     camera.position.set(30, 20, 30);
+
+    // Thiết lập ánh sáng (Ambient, Point, và Spotlight)
     const ambientLight = new THREE.AmbientLight(0x404040, 1);
     const pointLight = new THREE.PointLight(0xFFFFFF, 1, 50);
     pointLight.position.set(0, 30, 0);
     scene.add(ambientLight, pointLight);
 
-    // Spotlight for extra realism
+    // Spotlight để tăng thêm sự chân thực
     const spotlight = new THREE.SpotLight(0xFFDD00, 1.5);
     spotlight.position.set(0, 50, 0);
     spotlight.target.position.set(0, 10, 0);
     spotlight.castShadow = true;
     scene.add(spotlight);
 
-    // Function to create tree layers with gradient color effect
+    // Hàm tạo các lớp cây với hiệu ứng màu gradient
     function createTreeLayer(height, radius, positionY, color1, color2) {
       const treeGeometry = new THREE.ConeGeometry(radius, height, 32);
       const treeMaterial = new THREE.MeshStandardMaterial({
@@ -311,21 +664,35 @@ window.addEventListener('resize', updateButtonPosition);
         emissiveIntensity: 0.1,
       });
       const treeLayer = new THREE.Mesh(treeGeometry, treeMaterial);
-      treeLayer.position.y = positionY + Math.random() * 2; // Adding slight randomness
-      treeLayer.rotation.y = Math.random() * Math.PI; // Random rotation
+      treeLayer.position.y = positionY + Math.random() * 2; // Thêm chút ngẫu nhiên
+      treeLayer.rotation.y = Math.random() * Math.PI; // Xoay ngẫu nhiên
       treeLayer.castShadow = true;
       treeLayer.receiveShadow = true;
+      
+      // Thêm chi tiết lá cây
+      const leafGeometry = new THREE.SphereGeometry(0.5, 8, 8);
+      const leafMaterial = new THREE.MeshStandardMaterial({ color: 0x228B22, emissive: 0x006400, emissiveIntensity: 0.2 });
+      for (let i = 0; i < 10; i++) {
+        const leaf = new THREE.Mesh(leafGeometry, leafMaterial);
+        leaf.position.set(
+          (Math.random() - 0.5) * radius,
+          (Math.random() - 0.5) * height,
+          (Math.random() - 0.5) * radius
+        );
+        treeLayer.add(leaf);
+      }
+      
       return treeLayer;
     }
 
-    // Create tree layers and trunk with gradient color effect
+    // Tạo các lớp cây và thân cây với hiệu ứng màu gradient
     const tree = new THREE.Group();
-    tree.add(createTreeLayer(15, 5, 10, 0x006400, 0x2E8B57)); // Bottom layer
-    tree.add(createTreeLayer(12, 4, 18, 0x2E8B57, 0x228B22)); // Middle layer
-    tree.add(createTreeLayer(9, 3, 25, 0x228B22, 0x006400)); // Top layer
+    tree.add(createTreeLayer(15, 5, 10, 0x006400, 0x2E8B57)); // Lớp dưới
+    tree.add(createTreeLayer(12, 4, 18, 0x2E8B57, 0x228B22)); // Lớp giữa
+    tree.add(createTreeLayer(9, 3, 25, 0x228B22, 0x006400)); // Lớp trên
     scene.add(tree);
 
-    // Create Tree Trunk
+    // Tạo thân cây
     function createTreeTrunk() {
       const trunkGeometry = new THREE.CylinderGeometry(1, 1, 5, 32);
       const trunkMaterial = new THREE.MeshStandardMaterial({ color: 0x8B4513 });
@@ -366,24 +733,44 @@ window.addEventListener('resize', updateButtonPosition);
 
     // Create Ornaments with Glow Effect
     function createOrnament(positionX, positionZ) {
+      const colors = [0xFF0000, 0x00FF00, 0x0000FF, 0xFFFF00, 0xFF69B4, 0x8A2BE2];
+      const selectedColor = colors[Math.floor(Math.random() * colors.length)];
       const ornamentMaterial = new THREE.MeshStandardMaterial({
-        color: Math.random() > 0.5 ? 0xFF0000 : 0x00FF00,
+        color: selectedColor,
         emissive: 0xFFFFFF,
-        emissiveIntensity: 1.5
+        emissiveIntensity: 0.5,
+        metalness: 0.5,
+        roughness: 0.2
       });
       const ornamentGeometry = new THREE.SphereGeometry(0.5 + Math.random() * 0.5, 16, 16);
       const ornament = new THREE.Mesh(ornamentGeometry, ornamentMaterial);
-      ornament.position.set(positionX, Math.random() * 15 + 5, positionZ);
+      
+      let x = positionX;
+      let z = positionZ;
+      
+      // Nếu là màu xanh lá cây, di chuyển ra xa hơn
+      if (selectedColor === 0x00FF00) {
+        const distance = 7; // Tăng khoảng cách từ cây
+        const angle = Math.random() * Math.PI * 2;
+        x = Math.cos(angle) * distance;
+        z = Math.sin(angle) * distance;
+      }
+      
+      ornament.position.set(x, Math.random() * 15 + 5, z);
       ornament.castShadow = true;
       ornament.receiveShadow = true;
+      
+      // Thêm hiệu ứng xoay nhẹ cho quả bóng
+      ornament.userData = { rotationSpeed: (Math.random() - 0.5) * 0.02 };
       return ornament;
     }
 
     // Add Ornaments
     for (let i = 0; i < 50; i++) {
       const angle = Math.random() * Math.PI * 2;
-      const x = Math.sin(angle) * (Math.random() * 5 + 5);
-      const z = Math.cos(angle) * (Math.random() * 5 + 5);
+      const distance = Math.random() * 5 + 5;
+      const x = Math.sin(angle) * distance;
+      const z = Math.cos(angle) * distance;
       scene.add(createOrnament(x, z));
     }
 
@@ -401,17 +788,34 @@ window.addEventListener('resize', updateButtonPosition);
 
     // Twinkling Lights with Optimized Glowing Effect
     function addTreeLights() {
-      const colors = [0xff0000, 0x00ff00, 0x0000ff, 0xffff00];
+      const colors = [0xff0000, 0x00ff00, 0x0000ff, 0xffff00, 0xff69b4, 0x8a2be2];
       for (let i = 0; i < 50; i++) {
         const light = new THREE.PointLight(colors[Math.floor(Math.random() * colors.length)], 1, 10);
         const angle = Math.random() * Math.PI * 2;
         const distance = Math.random() * 5 + 5;
         light.position.set(Math.sin(angle) * distance, Math.random() * 15 + 5, Math.cos(angle) * distance);
         light.castShadow = true;
+        
+        // Thêm hiệu ứng nhấp nháy cho đèn
+        light.userData = { flickerSpeed: Math.random() * 0.05 + 0.05 };
         scene.add(light);
       }
     }
     addTreeLights();
+
+    // Thêm ánh sáng lung linh cho cây thông
+    const treeLightGeometry = new THREE.SphereGeometry(0.2, 8, 8);
+    const treeLightMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, emissive: 0xffffff, transparent: true, opacity: 0.8 });
+    for (let i = 0; i < 100; i++) {
+      const treeLight = new THREE.Mesh(treeLightGeometry, treeLightMaterial);
+      treeLight.position.set(
+        (Math.random() - 0.5) * 10,
+        Math.random() * 30,
+        (Math.random() - 0.5) * 10
+      );
+      treeLight.scale.setScalar(Math.random() * 0.5 + 0.5);
+      scene.add(treeLight);
+    }
 
     // Animation Loop
     let angle = 0;
@@ -419,23 +823,37 @@ window.addEventListener('resize', updateButtonPosition);
       requestAnimationFrame(animate);
 
       // Snowfall effect update
-      snow.geometry.attributes.position.array.forEach((v, i) => {
-        snow.geometry.attributes.position.array[i + 1] -= 0.1 + Math.random() * 0.05;
-        if (snow.geometry.attributes.position.array[i + 1] < -30) {
-          snow.geometry.attributes.position.array[i + 1] = Math.random() * 50 + 25;
+      const positions = snow.geometry.attributes.position.array;
+      for (let i = 0; i < positions.length; i += 3) {
+        positions[i + 1] -= 0.1 + Math.random() * 0.05;
+        if (positions[i + 1] < -30) {
+          positions[i + 1] = Math.random() * 50 + 25;
         }
-      });
-
+      }
       snow.geometry.attributes.position.needsUpdate = true;
 
-      // Rotate tree and camera for dynamic view
-      angle += 0.01;
+      // Rotate tree và camera để có góc nhìn động
+      angle += 0.005;
       camera.position.x = Math.cos(angle) * 30;
       camera.position.z = Math.sin(angle) * 30;
       camera.lookAt(new THREE.Vector3(0, 10, 0));
 
       // Update star flicker
       updateStarFlicker();
+
+      // Nhấp nháy đèn cây
+      scene.traverse((child) => {
+        if (child.isPointLight && child.userData.flickerSpeed) {
+          child.intensity = 1 + Math.sin(Date.now() * child.userData.flickerSpeed) * 0.5;
+        }
+        if (child.isMesh && child.geometry.type === "SphereGeometry" && child.material.emissiveIntensity !== undefined) {
+          child.material.emissiveIntensity = 0.8 + Math.sin(Date.now() * 0.005) * 0.2;
+        }
+        // Xoay nhẹ các quả bóng trang trí
+        if (child.isMesh && child.userData.rotationSpeed) {
+          child.rotation.y += child.userData.rotationSpeed;
+        }
+      });
 
       // Render the scene
       renderer.render(scene, camera);
@@ -445,8 +863,11 @@ window.addEventListener('resize', updateButtonPosition);
 
     // Resize handling
     window.addEventListener('resize', () => {
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      camera.aspect = window.innerWidth / window.innerHeight;
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      camera.aspect = width / height;
       camera.updateProjectionMatrix();
     });
 
@@ -461,6 +882,170 @@ window.addEventListener('resize', updateButtonPosition);
       }
     });
 
+    // Thêm hoa tuyết xung quanh cây thông
+    function addSnowflakesToTree() {
+      const snowflakeGeometry = new THREE.SphereGeometry(0.05, 6, 6);
+      const snowflakeMaterial = new THREE.MeshBasicMaterial({ color: 0xFFFFFF, transparent: true, opacity: 0.7 });
+      for (let i = 0; i < 100; i++) {
+        const snowflake = new THREE.Mesh(snowflakeGeometry, snowflakeMaterial);
+        snowflake.position.set(
+          (Math.random() - 0.5) * 10,
+          Math.random() * 30,
+          (Math.random() - 0.5) * 10
+        );
+        scene.add(snowflake);
+      }
+    }
+
+    addSnowflakesToTree();
+  </script>
+  
+  <script>
+    window.onload = function() {
+      const transitionOverlay = document.querySelector('.transition-overlay');
+      // Để overlay biến mất sau khi tải xong trang
+      setTimeout(function() {
+        transitionOverlay.style.display = 'none';
+        startSantaMessages();
+      }, 1000); // Thời gian trùng với thời gian animation
+    };
+
+    // Hàm bắt đầu hiển thị tin nhắn từ Santa
+    function startSantaMessages() {
+      const santaMessage = document.getElementById('santaMessage');
+      const messageContent = santaMessage.querySelector('h2');
+      const interactionButtons = document.getElementById('interactionButtons');
+      let messageIndex = 0;
+      const messages = [
+        "Hô hô...",
+        "Trông cháu thật xinh đẹp",
+        "Cho ta hỏi", 
+        "Cháu có người yêu chưa?"
+      ];
+      const options = [
+        { text: "Dạ rồi ạ", next: handleOption1 },
+        { text: "Dạ cháu chưa", next: handleOption2 }
+      ];
+
+      function showMessage() {
+        if (messageIndex < messages.length) {
+          messageContent.textContent = "";
+          santaMessage.style.display = 'block';
+          let currentText = "";
+          let i = 0;
+          const typingInterval = setInterval(() => {
+            currentText += messages[messageIndex][i];
+            messageContent.textContent = currentText;
+            i++;
+            if (i >= messages[messageIndex].length) {
+              clearInterval(typingInterval);
+              messageIndex++;
+              if (messageIndex === messages.length) {
+                showOptions(options);
+              } else {
+                setTimeout(showMessage, 2000);
+              }
+            }
+          }, 50);
+        }
+      }
+
+      function showOptions(opts) {
+        interactionButtons.style.display = 'block';
+        document.getElementById('option1').textContent = opts[0].text;
+        document.getElementById('option2').textContent = opts[1].text;
+
+        document.getElementById('option1').onclick = () => {
+          interactionButtons.style.display = 'none';
+          opts[0].next();
+        };
+        document.getElementById('option2').onclick = () => {
+          interactionButtons.style.display = 'none';
+          opts[1].next();
+        };
+      }
+
+      // Xử lý lựa chọn "Dạ rồi ạ"
+      function handleOption1() {
+        const responses = [
+          "Thật tiếc quá",
+          "Ta có món quà ta chuẩn bị cho cháu",
+          "Mà chắc món quà đó đang buồn lắm đấy"
+        ];
+        showSequentialMessages(responses, () => {});
+      }
+
+      // Xử lý lựa chọn "Dạ cháu chưa"
+      function handleOption2() {
+        const responses = [
+          "HaHa...",
+          "Quả thật",
+          "Ta có một món quà phù hợp để tặng cháu",
+          "Cháu có muốn nhận món quà này không?"
+        ];
+        const nextOptions = [
+          { text: "Dạ có", next: handleOption2_1 },
+          { text: "Dạ thôi ạ", next: handleOption2_2 }
+        ];
+        showSequentialMessages(responses, () => {
+          showOptions(nextOptions);
+        });
+      }
+
+      // Xử lý lựa chọn "Dạ có"
+      function handleOption2_1() {
+        const responses = [
+          "Tiết lộ cho cháu biết một bí mật là cậu ta đang thích thầm cháu đấy",
+          "Hãy nắm bắt cơ hội nhé",
+          "Chúc cháu ngày Giáng Sinh an lành"
+        ];
+        showSequentialMessages(responses, () => {});
+      }
+
+      // Xử lý lựa chọn "Dạ thôi ạ"
+      function handleOption2_2() {
+        const responses = [
+          "Hô Hô...Chúc cháu ngày Giáng Sinh an lành"
+        ];
+        showSequentialMessages(responses, () => {});
+      }
+
+      // Hàm hiển thị các tin nhắn một cách tuần tự
+      function showSequentialMessages(msgs, callback) {
+        const santaMessage = document.getElementById('santaMessage');
+        const messageContent = santaMessage.querySelector('h2');
+        let idx = 0;
+
+        function showNext() {
+          if (idx < msgs.length) {
+            messageContent.textContent = "";
+            santaMessage.style.display = 'block';
+            let currentText = "";
+            let i = 0;
+            const typingInterval = setInterval(() => {
+              currentText += msgs[idx][i];
+              messageContent.textContent = currentText;
+              i++;
+              if (i >= msgs[idx].length) {
+                clearInterval(typingInterval);
+                idx++;
+                setTimeout(showNext, 2000);
+              }
+            }, 50);
+          } else {
+            if (callback) callback();
+          }
+        }
+
+        showNext();
+      }
+
+      showMessage();
+    }
+  </script>
+  <audio id="background-music" src="your-music-file.mp3" loop></audio>
+  <script>
+    // Additional scripts if needed
   </script>
 </body>
 </html>
