@@ -428,7 +428,7 @@ body.overlay {
     transform: translate(-50%, -50%) scale(1.2);
 }
 
-@media (min-width: 769px) {
+@media (min-width: 768px) {
   .container-01 {
     width: 35%;
     top: 39%;
@@ -445,6 +445,14 @@ body.overlay {
     font-size: 10vh;
     left: 95%;
   }
+}
+@media (max-width: 768px) {
+    .container-01 {
+        width: 60%;
+        top: 39%;
+        left: 20%;
+        transform: translateX(-50%);
+    }
 }
 
 .container-01 #btn.moved {
