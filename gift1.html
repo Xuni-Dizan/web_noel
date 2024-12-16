@@ -219,13 +219,15 @@ iframe {
     padding: 0 20px;
     width: 100%; /* Đảm bảo không bị cắt bớt */
     overflow: hidden;
+    animation: typing 4s steps(40) 5000s forwards;
     font-size: 2rem; /* Tăng kích thước chữ */
 }
 
-.h2.typing-effect1, .typing-effect {
+h2.typing-effect1, .typing-effect {
     color: #FF66B2;
     font-weight: bold;
     font-size: 2rem; /* Tăng kích thước chữ */
+     animation: typing 4s steps(40) 5000s forwards;
     text-shadow: 0px 0px 20px rgba(255, 102, 178, 0.8), 0px 0px 30px rgba(255, 102, 178, 0.5);
 }
 
@@ -491,7 +493,7 @@ body.overlay {
   </div>
   <div id="questionScreen">
       <div class="question-content">
-          <h2 class="typing-effect1">--------------------------------------------HaHa...Tớ biết tớ đỉnh mà. Mấy lời đáng iu như vậy mai sau nói nhiều chút😁</h2>
+          <h2 class="typing-effect1">HaHa...Tớ biết tớ đỉnh mà. Mấy lời đáng iu như vậy mai sau nói nhiều chút😁</h2>
           <div class="choice-buttons">
               <button class="btn-love" onclick="handleChoice1(true)">Yêu cậu quá đi💖</button>
               <button class="btn-love" onclick="handleChoice1(false)">Đừng có mơ😒</button>
@@ -617,10 +619,29 @@ body.overlay {
       });
       
       // Khi questionScreen xuất hiện, gọi hàm này
-      document.getElementById('questionScreen').addEventListener('animationend', function () {
-          const textElement1 = document.querySelector('.typing-effect1');
-          typeTextWithLineBreaks(textElement1, 50);
-      });
+    //   document.getElementById('questionScreen').addEventListener('animationend', function () {
+    //       const textElement1 = document.querySelector('.typing-effect1');
+    //       typeTextWithLineBreaks(textElement1, 50);
+    //   });
+
+      function typeTextEffect1(textElement, intervalTime = 50) {
+          const fullText = textElement.textContent;
+          textElement.textContent = '';
+          let i = 0;
+
+          textElement.style.display = 'inline-block';
+          textElement.style.whiteSpace = 'pre-wrap';
+          textElement.style.borderRight = '.15em solid #ff4b6e';
+
+          const interval = setInterval(() => {
+              textElement.textContent += fullText.charAt(i);
+              i++;
+              if (i >= fullText.length) {
+                  clearInterval(interval);
+                  textElement.style.borderRight = 'none';
+              }
+          }, intervalTime);
+      }
   </script>
 </body>
 </html>
