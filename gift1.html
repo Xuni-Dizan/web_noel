@@ -66,53 +66,52 @@ iframe {
     display: none; /* Đặt lại thành none để ẩn ban đầu */
     position: fixed;
     border-radius: 14px;
-    top: 39%;
-    left: 64%;
-    justify-content: space-around;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
-    width: 35%;
+    flex-direction: column;
+    width: 55%;
     min-height: 25vh;
     background: #0e1538;
     opacity: 0;
-    transform: scale(0.9);
     transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 .container-01.show {
     display: flex;
     opacity: 1;
-    transform: scale(1);
+    width:45%;
+    min-height: 25vh;
+    transform: translate(-50%, -50%) scale(1);
 }
 
 .container-01 h2{
     color: #f7f7f7;
     flex-wrap: wrap;
     font-size: medium;
-    margin-left: 5px;
-    margin-bottom: 10px;
+    margin: 20px 20px;
     text-align: center;
 }
 
 .diva{
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     background: #f7f7f7;
     border-radius: 14px;
-    margin: 5px;
+    margin: 10px 0;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     transition: 0.3s;
-    align-items: center;
-    justify-items: center;
 }
 
-.diva .btn:hover {
-    transform: translateY(-5px);
-}
-
-.diva .btn span {
-    position: relative;
-    z-index: 2;
+.diva .btn {
+    width: 80%;
+    margin: 10px 0;
 }
 
 .btn {
@@ -122,11 +121,13 @@ iframe {
     justify-content: center;
     align-items: center;
     background: rgba(0, 0, 0, 0.5);
-    margin: 40px;
+    margin: 10px 0;
     transition: 1s;
     overflow: hidden;
     text-decoration: none;
     z-index: 9999999;
+    width: 100%;
+    border-radius: 8px;
 }
 
 .btn:hover {
@@ -217,7 +218,7 @@ iframe {
     color: #FF66B2;
     font-weight: bold;
     padding: 0 20px;
-    width: 100%; /* Đảm bảo không bị cắt bớt */
+    width: 90%; /* Đảm bảo không bị cắt bớt */
     overflow: hidden;
     animation: typing 4s steps(40) 5000s forwards;
     font-size: 2rem; /* Tăng kích thước chữ */
@@ -269,13 +270,16 @@ h2.typing-effect1, .typing-effect {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0.9);
+    transform: translate(-50%, -50%) scale(1);
     background: rgba(255, 255, 255, 0.95);
     padding: 40px 50px;
     border-radius: 25px;
     box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
     text-align: center;
-    justify-items: center;
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     width: 80%;
     max-width: 500px;
     max-height: 550px;
@@ -287,20 +291,16 @@ h2.typing-effect1, .typing-effect {
 
 .question-content {
     animation: slideIn 0.5s ease-out;
-    left: 5%;
     text-align: center;
-    justify-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
 }
 
 .question-content .typing-effect1 h2{
-    /* color: #FF66B2;
-    font-weight: bold;
-    font-size: 1.8rem;
-    text-shadow: 0px 0px 10px rgba(255, 102, 178, 0.8);
-    margin-bottom: 20px; */
-    flex-wrap: wrap;
-    left: -5%;
+    /* Các kiểu cũ đã được xóa bỏ */
+    margin-bottom: 20px;
 }
 
 .choice-buttons {
@@ -308,6 +308,7 @@ h2.typing-effect1, .typing-effect {
     justify-content: center;
     gap: 20px;
     flex-wrap: wrap;
+    margin-top: 20px;
 }
 
 .btn-love {
@@ -351,22 +352,6 @@ h2.typing-effect1, .typing-effect {
     }
 }
 
-@media (max-width: 768px) {
-    #questionScreen {
-        padding: 30px 20px;
-        width: 90%;
-    }
-
-    .typing-effect1 {
-        font-size: 1.5rem;
-    }
-
-    .btn-love {
-        font-size: 16px;
-        padding: 10px 20px;
-    }
-}
-
 body.overlay {
     background-color: rgba(0, 0, 0, 0.5);
     overflow: hidden;
@@ -394,11 +379,6 @@ body.overlay {
     100% {
         transform: scale(1);
     }
-}
-
-.choice-buttons {
-    margin-top: 20px;
-    display: inline-block;
 }
 
 .btn-love {
@@ -440,9 +420,9 @@ body.overlay {
 @media (min-width: 768px) {
   .container-01 {
     width: 35%;
-    top: 39%;
-    left: 64%;
-    transform: translateX(-50%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
   .btn {
@@ -455,21 +435,33 @@ body.overlay {
     left: 95%;
   }
 }
-@media (max-width: 768px) {
-    .container-01 {
-        width: 60%;
-        top: 39%;
-        left: 20%;
-        transform: translateX(-50%);
+@media (max-width: 480px) {
+    .container-01.show {
+        width: 80%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 }
 
-.container-01 #btn.moved {
-    position: fixed;
-    top: 10px;
-    left: 90%;
-    transform: translateX(-50%);
+@media (max-width: 768px) {
+    .container-01 {
+        width: 60%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .question-content .typing-effect1 {
+        font-size: 1.5rem;
+    }
+
+    .btn-love {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
 }
+
     </style>
     <title>Noel tặng cậu</title>
 </head>
@@ -526,22 +518,20 @@ body.overlay {
       function handleChoice(accepted) {
           const questionScreen = document.getElementById('questionScreen');
           const container01 = document.querySelector('.container-01');
-        //   const button_1 = document.querySelector('.btn');
-        const button = document.querySelector('button[onclick="handleChoice(false)"]');
-        const questionIcon = document.querySelector('.question-icon');
+          const button = document.querySelector('button[onclick="handleChoice(false)"]');
+          const questionIcon = document.querySelector('.question-icon');
 
           if (accepted) {
-              questionScreen.style.display = 'block';
+              questionScreen.style.display = 'flex';
               container01.style.display = 'none';
               button.style.display = 'none';
               questionIcon.style.display = 'none';
               typeTextWithLineBreaks(document.querySelector('.typing-effect1'), 50);
           } else {
-            //   const button = document.querySelector('button[onclick="handleChoice(false)"]');
               const buttonWidth = button.offsetWidth;
               const buttonHeight = button.offsetHeight;
 
-              // Tính toán giới hạn để nút không vượt qua màn hình
+              // Tính toán giới hạn để nút không vượt ra ngoài màn hình
               const maxX = window.innerWidth - buttonWidth;
               const maxY = window.innerHeight - buttonHeight;
 
@@ -576,7 +566,7 @@ body.overlay {
               const buttonWidth = button.offsetWidth;
               const buttonHeight = button.offsetHeight;
 
-              // Tính toán giới hạn để nút không vượt qua màn hình
+              // Tính toán giới hạn để nút không vượt ra ngoài màn hình
               const maxX = window.innerWidth - buttonWidth;
               const maxY = window.innerHeight - buttonHeight;
 
@@ -597,15 +587,18 @@ body.overlay {
       // Xử lý sự kiện khi nhấn icon "?"
       document.getElementById('question-icon').addEventListener('click', function() {
           const container01 = document.querySelector('.container-01');
+          const questionIcon = document.getElementById('question-icon');    
           
           // Toggle visibility với hiệu ứng chuyển động mượt mà
           if (container01.classList.contains('show')) {
               container01.classList.remove('show');
+              questionIcon.style.display = 'none';
               setTimeout(() => {
                   container01.style.display = "none";
               }, 500); // Thời gian trễ để hoàn thành hiệu ứng
           } else {
               container01.style.display = "flex";
+              questionIcon.style.display = 'none';
               setTimeout(() => {
                   container01.classList.add('show');
                   typeTextWithLineBreaks(document.querySelector('.typing-effect'), 50);
