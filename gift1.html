@@ -271,12 +271,11 @@ h2.typing-effect1, .typing-effect {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(1);
-    background: rgba(255, 255, 255, 0.95);
+    background: linear-gradient(135deg, #ffe6f0, #ffccff);
     padding: 40px 50px;
     border-radius: 25px;
     box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
     text-align: center;
-    /* display: flex; */
     align-items: center;
     justify-content: center;
     flex-direction: column;
@@ -287,6 +286,7 @@ h2.typing-effect1, .typing-effect {
     z-index: 10000;
     animation: fadeIn 0.8s ease-in-out, pulse 2s infinite;
     backdrop-filter: blur(10px);
+    border: 2px solid #ff66b2;
 }
 
 .question-content {
@@ -296,11 +296,31 @@ h2.typing-effect1, .typing-effect {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
+}
+
+.question-content::before {
+    content: '✨';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    font-size: 2rem;
+    animation: float 3s infinite ease-in-out;
+}
+
+.question-content::after {
+    content: '🎄';
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    font-size: 2rem;
+    animation: float 3s infinite ease-in-out reverse;
 }
 
 .question-content .typing-effect1 h2{
-    /* Các kiểu cũ đã được xóa bỏ */
     margin-bottom: 20px;
+    color: #ff4da6;
+    text-shadow: 2px 2px 4px rgba(255, 102, 178, 0.3);
 }
 
 .choice-buttons {
@@ -312,21 +332,45 @@ h2.typing-effect1, .typing-effect {
 }
 
 .btn-love {
-    background: linear-gradient(45deg, #FF6EC7, #FF99CC);
+    background: linear-gradient(45deg, #ff66b2, #ff99cc);
     color: white;
     font-size: 18px;
     border: none;
     border-radius: 30px;
     padding: 12px 25px;
     cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-    box-shadow: 0px 4px 15px rgba(255, 105, 180, 0.3);
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    box-shadow: 0px 4px 15px rgba(255, 102, 178, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-love::before {
+    content: '❄️';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.5s ease;
+    font-size: 1.5rem;
 }
 
 .btn-love:hover {
-    background: linear-gradient(45deg, #FF3385, #FF66B2);
+    background: linear-gradient(45deg, #ff3385, #ff66b2);
     transform: scale(1.05);
-    box-shadow: 0px 6px 20px rgba(255, 105, 180, 0.5);
+    box-shadow: 0px 6px 20px rgba(255, 102, 178, 0.7);
+}
+
+.btn-love:hover::before {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
 }
 
 @keyframes slideIn {
