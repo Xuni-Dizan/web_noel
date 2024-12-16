@@ -517,13 +517,18 @@ body.overlay {
       function handleChoice(accepted) {
           const questionScreen = document.getElementById('questionScreen');
           const container01 = document.querySelector('.container-01');
+        //   const button_1 = document.querySelector('.btn');
+        const button = document.querySelector('button[onclick="handleChoice(false)"]');
+        const questionIcon = document.querySelector('.question-icon');
 
           if (accepted) {
               questionScreen.style.display = 'block';
               container01.style.display = 'none';
+              button.style.display = 'none';
+              questionIcon.style.display = 'none';
               typeTextWithLineBreaks(document.querySelector('.typing-effect1'), 50);
           } else {
-              const button = document.querySelector('button[onclick="handleChoice(false)"]');
+            //   const button = document.querySelector('button[onclick="handleChoice(false)"]');
               const buttonWidth = button.offsetWidth;
               const buttonHeight = button.offsetHeight;
 
