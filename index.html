@@ -183,7 +183,7 @@ body:before {
 .btn:active {
     background: #f28a8a;
     box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
-    transform: scale(0.95); /* Giảm kích thước khi nhấn */
+    transform: scale(0.95); /* Gi���m kích thước khi nhấn */
 }
 
 #output {
@@ -207,11 +207,26 @@ body:before {
     font-size: 1.5em;
     color: #ff66b2;
     font-weight: bold;
-    width: 100%;
+    width: 90%;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.6);
     text-shadow: 0 0 8px rgba(255, 105, 180, 0.8), 0 0 15px #ff66b2;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    animation: fadeInSlide 1s forwards;
 }
 
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 #questionScreen {
     background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,250,250,0.9) 100%);
@@ -1205,7 +1220,7 @@ output.innerHTML = x;
             if (x == 0) {
                 message.innerHTML = "Thôi nào! có muốn lấy quà không đây 😩";
             } else if (x == 10) {
-                message.innerHTML = "Mắt nhìn của cậu thật không tồi, Nếu tớ sinh trước năm 1504 tác phẩm của Michelangelo sẽ không còn là bức chân của David 😎";
+                message.innerHTML = "Mắt nhìn của cậu thật không tồi, Nếu tớ sinh trước năm 1504 tác phẩm của Michelangelo sẽ không còn là bức chân dung của David 😎";
             } else if (x < 3) {
                 message.innerHTML = "Chỉ vậy thôi sao 😕";
             } else if (x < 7) {
@@ -1214,8 +1229,10 @@ output.innerHTML = x;
                 message.innerHTML = "Cô gái thông minh là cô gái biết tớ xinh trai cỡ nào mà 😏";
             }
             message.style.opacity = 1;
+            message.style.transform = "scale(1.05)"; // Hiệu ứng phóng to nhẹ
             setTimeout(() => {
                 message.style.opacity = 0;
+                message.style.transform = "scale(1)";
             }, 10000); // Ẩn thông điệp sau 10 giây
         }
 
